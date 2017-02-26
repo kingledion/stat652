@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage[margin=0.5in]{geometry}
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}%
+
+\title{Homework 2}
+\author{Daniel Hartig}
+
+
+\begin{document}
+\maketitle
+
+\subsubsection*{Problem 1}
+\iffalse
+For mass function $$f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)$$ the distribution function over the same domain is obtained by integration $$F_{T_n}(t) = (8nt - 4n^2t^2 + C)\, I_{(1/2n, 1/n)}(t).$$ To be a valud distrubition function, $F$ must equal 0 at the lower bound of the domain, $t = 1/2n$, and equal 1 at the upper bound $t = 1/n$. At theses bounds, $F$ evaluates to 
+\[\begin{aligned}
+F_{T_n}(1/2n) &= \frac{8n}{2n} - \frac{4n^2}{(2n)^2} + C &= 3 + C \\
+F_{T_n}(1/n)&= \frac{8n}{n} - \frac{4n^2}{n^2} + C &= 4 + C.
+\end{aligned}\]
+Therefore $C = -3$, $F(t) = 0$ for $ t<1/2n$ and $F(t) = 1$ for $ t > 1/n$, and $F_{T_n}(t) = (8nt - 4n^2t^2 -3)\, I_{(1/2n, 1/n)}(t)$ meets the requirements of a distrubution function for all $n$.
+\fi
+
+As $n\to\infty$, the mass function \[f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)\] approaches different values in its upper and lower bounds in $t$. At $t = 1/n$, \[\lim_{n\to\infty} (8n-8n^2t) = \lim_{n\to\infty} 8n-\frac{8n^2}{n} = 0.\] while at $t=1/2n$, \[\lim_{n\to\infty} (8n-8n^2t) = \lim_{n\to\infty} 8n-\frac{8n^2}{2n} = \lim_{n\to\infty} 4n = \infty.\] Meanwhile the domain of $t$ becomes $(1/2n, 1/n) = (0, 0)$. Thus the limiting distribution for $f$ is a vertical line at $t=0$, where the image of $f$ is all non-negative real numbers. 
+
+\subsubsection*{Problem 2}
+
+For 
+\[f_{X_n}(x) = \begin{dcases}
+\frac{1}{n}, &x = n^2, \\
+\frac{n-1}{n}, &x = 0, \\
+0, &\textrm{otherwise}. 
+\end{dcases}\]
+the moment-generating function is calculated by \[M_X(t) = \sum_{x\in A}e^{tx}p(x) = e^{t\cdot 0}\left(\frac{n-1}{n}\right) + e^{tn^2}\left(\frac{1}{n}\right) = \frac{1}{n}\left(e^{tn^2} + n - 1\right).\] To calculate the $E(X_n)$ we need the first $t$ derivative of $M_X$, \[M'_X(t) = \frac{d}{dt}\frac{1}{n}\left(e^{tn^2} + n - 1\right) = ne^{tn^2},\] so that \[E(X_n) = M'_X(0) = ne^{0\cdot n^2} = n.\]
+
+For $T_n = X_n - E(X_n)$, \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim_{n\to\infty} E(X_n).\] $E(X) = n$ therefore $E(X)$ approaches infinity. For $X_n$, the probability that $x=n^2$ is $1/n$ and approaches zero. The probability that $x=0$ approaches $1$. Then  \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim_{n\to\infty} E(X_n) = 0 - \infty = -\infty.\] Therefore, there is no limiting distribution for $f$. 
+
+
+
+
+
+
+\end{document}
