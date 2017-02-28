@@ -14,20 +14,23 @@
 \begin{document}
 \maketitle
 
-\subsubsection*{Problem 1}
-\iffalse
+\subsection*{Problem 1}
+
 For mass function $$f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)$$ the distribution function over the same domain is obtained by integration $$F_{T_n}(t) = (8nt - 4n^2t^2 + C)\, I_{(1/2n, 1/n)}(t).$$ To be a valud distrubition function, $F$ must equal 0 at the lower bound of the domain, $t = 1/2n$, and equal 1 at the upper bound $t = 1/n$. At theses bounds, $F$ evaluates to 
 \[\begin{aligned}
 F_{T_n}(1/2n) &= \frac{8n}{2n} - \frac{4n^2}{(2n)^2} + C &= 3 + C \\
 F_{T_n}(1/n)&= \frac{8n}{n} - \frac{4n^2}{n^2} + C &= 4 + C.
 \end{aligned}\]
-Therefore $C = -3$, $F(t) = 0$ for $ t<1/2n$ and $F(t) = 1$ for $ t > 1/n$, and $F_{T_n}(t) = (8nt - 4n^2t^2 -3)\, I_{(1/2n, 1/n)}(t)$ meets the requirements of a distrubution function for all $n$.
+Therefore $C = -3$, $F(t) = 0$ for $ t<1/2n$ and $F(t) = 1$ for $ t > 1/n$, and \[F_{T_n}(t) = (8nt - 4n^2t^2 -3)\, I_{(1/2n, 1/n)}(t)\] meets the requirements of a distrubution function for all $n$. As $n$ approaches infinity, the range of $I_{(1/2n, 1/n)}(t)$ approaches the point $0$. We have already defined the $F(t) = 1$ for $ t > 1/n$, so we can say that \[lim_{n\to\infty} F_{T_n}(t) = 1\quad \forall t > 0.\] Thus, the limiting distribution of $F_{T_n}(t)$ approaches $F(t)$, where $F(t)$ is the distribution function of $T = 0$. The probability function of the limiting distribution for the sequence $T_1, T_2, ...$ is  
+\[f(t) = \begin{cases}
+1, &t = 0 \\
+0, &\text{otherwise}
+\end{cases}\]
+
+\iffalse
+As $n\to\infty$, the mass function \[f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)\] approaches different values in its upper and lower bounds in $t$. At $t = 1/n$, \[\lim_{n\to\infty} (8n-8n^2t) = \lim_{n\to\infty} 8n-\frac{8n^2}{n} = 0.\] while at $t=1/2n$, \[\lim_{n\to\infty} (8n-8n^2t) = \lim_{n\to\infty} 8n-\frac{8n^2}{2n} = \lim_{n\to\infty} 4n = \infty.\] Meanwhile the domain of $t$ becomes $(1/2n, 1/n) = (0, 0)$. Thus the limiting distribution for $f_{T_n}$ is a vertical line at $t=0$, where the image of $f_{T_n}$ is all non-negative real numbers. 
 \fi
-
-As $n\to\infty$, the mass function \[f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)\] approaches different values in its upper and lower bounds in $t$. At $t = 1/n$, \[\lim_{n\to\infty} (8n-8n^2t) = \lim_{n\to\infty} 8n-\frac{8n^2}{n} = 0.\] while at $t=1/2n$, \[\lim_{n\to\infty} (8n-8n^2t) = \lim_{n\to\infty} 8n-\frac{8n^2}{2n} = \lim_{n\to\infty} 4n = \infty.\] Meanwhile the domain of $t$ becomes $(1/2n, 1/n) = (0, 0)$. Thus the limiting distribution for $f$ is a vertical line at $t=0$, where the image of $f$ is all non-negative real numbers. 
-
-\subsubsection*{Problem 2}
-
+\subsection*{Problem 2}
 For 
 \[f_{X_n}(x) = \begin{dcases}
 \frac{1}{n}, &x = n^2, \\
@@ -35,9 +38,116 @@ For
 0, &\textrm{otherwise}. 
 \end{dcases}\]
 the moment-generating function is calculated by \[M_X(t) = \sum_{x\in A}e^{tx}p(x) = e^{t\cdot 0}\left(\frac{n-1}{n}\right) + e^{tn^2}\left(\frac{1}{n}\right) = \frac{1}{n}\left(e^{tn^2} + n - 1\right).\] To calculate the $E(X_n)$ we need the first $t$ derivative of $M_X$, \[M'_X(t) = \frac{d}{dt}\frac{1}{n}\left(e^{tn^2} + n - 1\right) = ne^{tn^2},\] so that \[E(X_n) = M'_X(0) = ne^{0\cdot n^2} = n.\]
+Thus,
+\[\begin{aligned}
+T_n &= X_n - E(X_n) \\
+&= X_n - n
+\end{aligned}\]
+The probility distribution of $T_n$ can then be defined as 
+\[f_{T_n}(x) = \begin{cases}
+\frac{1}{n}, &x = n^2 - n \\
+\frac{n-1}{n}, &x = -n \\
+0, &\text{otherwise}
+\end{cases}\]
+The cumulative distribution function is 
+\[F_{T_n}(x) = \begin{cases}
+0, & x < -n \\
+\frac{n-1}{n}, & -n \leq x < n^2 - n \\
+1, &n \geq n^2 - n.
+\end{cases}\]
+As $n\to\infty$, the term $(n-1)/n$ approaches 1, so
+\[\lim_{n\to\infty} F_{T_n} = \begin{cases}
+0, &x < -n \\
+1, &x \geq -n. \end{cases}\]
+However, $-n$ iteself goes to $-\infty$, so $F_{T_n}$ does not converge. Since the distribution function of $T_n$ does not converge, the a limiting distrubtion for the sequence $T_1, T_2, ...$ does not exist.
 
-For $T_n = X_n - E(X_n)$, \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim_{n\to\infty} E(X_n).\] $E(X) = n$ therefore $E(X)$ approaches infinity. For $X_n$, the probability that $x=n^2$ is $1/n$ and approaches zero. The probability that $x=0$ approaches $1$. Then  \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim_{n\to\infty} E(X_n) = 0 - \infty = -\infty.\] Therefore, there is no limiting distribution for $f$. 
+\iffalse
+For $T_n = X_n - E(X_n)$, \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim_{n\to\infty} E(X_n).\] $E(X) = n$ therefore $E(X)$ approaches infinity. For $X_n$, the probability that $x=n^2$ is $1/n$ and approaches zero. The probability that $x=0$ approaches $1$. Then  \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim_{n\to\infty} E(X_n) = 0 - \infty = -\infty.\] Therefore, there is no limiting distribution for $f_X$. 
+\fi
 
+\subsection*{Problem 3}
+For the continuious probability function $f_X(x) = 3(1-x)^2\,I_{(0,1)}(x),$ the cumulative distribution function is obtained by integration \[F_X(x) = \int 3(1-x)^2\,I_{(0,1)}(x)\,dx = x^3 -3x^2 +3x + C.\] For the bounds of the probability function $0$ and $1$, the values of $F_X$ are 
+\[\begin{aligned}
+x^3 -3x^2 +3x + C\,\big|_0 &= C \\
+x^3 -3x^2 +3x + C\,\big|_1 &= 1-3+3+C = 1+C.
+\end{aligned}\]
+Set $C = 0$, $F_X = 0$ for $x < 0$ and $F_X = 1$ for $x > 1$. Since the integral \[F_X(x) =  \int_0^1 3(1-x)^2\,I_{(0,1)}(x)\,dx = 1,\] $F_X = x(x^2-3x-3)\,I_{(0,1)}(x)$ is a valid distribution function. We can now use Theorem 5.4.4 from the textbook to find an expression for the probability function of $\max\{X_1, ...\,, X_n\}$, the $n$-th order statistic of $X$:
+\[\begin{aligned}
+f_{X_{(n)}}(x) &= \frac{n!}{(n-1)!(n-n)!}f_X(x)\left[F_X(x)\right]^{n-1}\left[1-F_X(x)\right]^{n-n} \\
+&= n\,f_X(x)\left[F_X(x)\right]^{n-1}
+\end{aligned}\]
+On the domain $0<x<1$. We can find an expression for \[T_n = n^{1/3}\left(1-n\,f_X(x)\left[F_X(x)\right]^{n-1}.\right)\] While considering the limit with respect to $n$ of this function, it is important to note that $F_X \leq 1$ for all $x$ in the domain since it is a distribution function; therefore, $\left[F_X(x)\right]^{n-1}$ tends to zero as $n$ tends to infinity.
+
+\subsection*{Problem 4}
+The moment generating function of the sum of intependent random variables in the sequence $X_1, X_2, ...$ is 
+\[M_{X_1}(t)M_{X_2}(t)... .\]
+The moment generating function of Poisson distribution is $exp(\lambda(e^t-1))$. Thus the moment generating function for $T_n = X_1 + ... + X_n$ is
+\[\begin{aligned}M_{T_n}(t) &= \prod_{k=1}^{n} \exp\left(k^{-2}\left(e^t - 1\right)\right) \\
+&= \exp\left(\left(e^t-1\right)\sum_{k=1}^{n} \frac{1}{k^2}\right).\end{aligned}\] 
+This is itself the moment generating function of a Poisson distrubution with \[\lambda = \sum_{k=1}^{n} \frac{1}{k^2}.\]
+As $n$ goes to infinity, the sum of this infinite series is $\pi^2/6$. Therefore, as $n$ goes to infinity, the sequence $T_1, T_2, ...$ converges to a limiting distribution of Poiss($\pi^2/6$), the probability mass function of which is 
+\[\frac{\pi^{2j} e^{-\pi^2/6}}{6^j j!}\]
+
+
+
+
+\iffalse
+The probability function of a Poisson random variable with $E(x) = \lambda$ is \[\frac{\lambda^je^{-\lambda}}{j!},\] so for $X_k$ with $E(X_k) = k^{-2}$, \[f_{X_k}(x) = \frac{k^{-2j}\exp\left(-\frac{1}{k^2}\right)}{j!},\] for all non-negative integrers $j$, and $0$ otherwise.
+%\iffalse
+$T_n$ can then be expressed as the sum of a series 
+\[\begin{aligned}
+T_n &= \sum_{k=1}^{n}\frac{k^{-2j}\exp\left(-\frac{1}{k^2}\right)}{j!} \\
+&=\frac{1}{j!}\sum_{k=1}^{n}\, k^{-2j}e^{-\frac{1}{k^2}}.\end{aligned}\]
+%\fi
+
+
+Since $e^{-\frac{1}{k^2}} <= 1 $ for all integers $k > 0$, then $k^{-2j}e^{-\frac{1}{k^2}} \leq k^{-2j}$ as well. $k^{-2j}$ or $\frac{1}{k^{2j}}$ is a basic null sequence, so $k^{-2j}e^{-\frac{1}{k^2}}$ is also a null sequence. Since $k^{-2j}e^{-\frac{1}{k^2}}$ is a null sequence, then  $\sum_{k=1}^{n}\, k^{-2j}e^{-\frac{1}{k^2}}$ is a convergent series. Therefore the last entry in the sequence $T_n$, is itself a convergent series. 
+\fi
+
+\subsection*{Problem 5}
+The joint distrubution of multiple Bernoulli random variables is the distribution of binomial random variable. For Bernoulli random varialbes $X_i$ with mean $p = 1/2$, \[\sum_{i=1}^n X_i = nE(X_i) = n^2p = \frac{1}{2}n^2.\] Since $X_i$ is a Bernoulli variable, the only possible outcomes are $0$ and $1$. Since $0^2=0$ and $1^2=1$, \[\sum_{i=1}^n X_i^2 = \sum_{i=1}^n X_i = \frac{1}{2}n^2.\] Therefore, \[T_n = \sqrt{n}\left(\frac{4\sum_{i=1}^2 X_i - 2n}{\sum_{i=1}^n X_i^2}\right) = \sqrt{n}\left(\frac{2n^2-2n}{1/2n^2}\right) = \frac{4}{\sqrt{n}}(n-1)\]
+
+\subsection*{Problem 6}
+\subsubsection*{Part a}
+$X$ is a random variable with $E(X) = \theta$. Let $g(X) = 1/\sqrt{X}$ be an estimator for $1/\sqrt{\theta}$; $g'(X) = -1/2\,x^{-3/2}.$ The first order Taylor approximation to the mean of $1/\sqrt{X_n}$ is
+\[\begin{aligned}
+g(X) &= g(\theta)+g'(\theta)(X-\theta) \\
+\frac{1}{\sqrt{X_n}} &= \frac{1}{\sqrt{\theta}} -\frac{1}{2}\theta^{-\frac{3}{2}}(X_n - \theta) \\
+E\left[\frac{1}{\sqrt{X_n}}\right] &= \frac{1}{\sqrt{\theta}} + -\frac{1}{2}\theta^{-\frac{3}{2}}\,E\left[X_n - \theta\right] \\
+\end{aligned}\]
+Since $\theta$ is the mean of $X$, $E[X-\theta] = 0$, and so 
+\[E\left[\frac{1}{\sqrt{X}}\right] = \frac{1}{\sqrt{\theta}}\]
+\subsubsection*{Part b}
+Since $g''(x) = 3/4x^{-5/2}$; the second order approximation to the mean of $1/\sqrt{X_n}$ is 
+\[\begin{aligned}
+g(X) &= g(\theta)+g'(\theta)(X-\theta)+\frac{1}{2}g''(\theta)(X_n-\theta)^2 \\
+E\left[\frac{1}{\sqrt{X}}\right] &= \frac{1}{\sqrt{\theta}} + \frac{3}{4}\theta^{-\frac{5}{2}}E\left[(X_n - \theta)^2\right] \\
+\end{aligned}\]
+Now $\theta$ is the mean of $X$, $E\left[(X - \theta)^2\right]$ is the definition of the variance of $X$, which is $\theta^3$. Therefore
+\[E\left[\frac{1}{\sqrt{X_n}}\right] = \frac{1}{\sqrt{\theta}} + \frac{3}{4}\sqrt{\theta}\] or 
+\[E\left[\frac{1}{\sqrt{X_n}}\right] = \frac{1+\frac{3}{4}\theta}{\sqrt{\theta}}\]
+\subsubsection*{Part c}
+The first order approximation to the variance of $1/\sqrt{X_n}$ is 
+\[\begin{aligned}
+\text{Var}\left[\frac{1}{\sqrt{X_n}}\right] &= \left(-\frac{1}{2}\theta^{-\frac{3}{2}}\right)^2\text{Var}\left[X_n\right] \\
+&= \frac{1}{4}\frac{1}{\theta^3}\theta^3 = \frac{1}{4}
+\end{aligned}\]
+\subsection*{Problem 7}
+To generate a sufficient statistic, we must factorize the joint probability density function
+$f_X(\mathbf{x}|\theta)$ into two terms $g(T(\mathbf{x})|\theta)$ and $h(\mathbf{x})$ as 
+\[\begin{aligned}
+f_X(x) &= \prod_{k=1}^n(\theta+1)^kx_k^\theta I_{(0,1)}(x) \\
+&= (\theta+1)^n \exp\left(\theta\sum_{k=1}^n \log{x_k}\right) I_{(0,1)}(x).\\
+\end{aligned}\]
+Therefore 
+\[h(\mathbf{x}) = I_{(0,1)}(x)\]
+and 
+\[g(T(\mathbf{x})|\theta) = (\theta+1)^n \exp\left(\theta\sum_{k=1}^n \log{x_k}\right),\]
+so 
+\[T(\mathbf{x}) = \sum_{k=1}^n \log{x_k}\]
+is a sufficiency statistic for $\theta$ for every $x$ in the sample space. 
+
+ 
 
 
 
