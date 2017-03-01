@@ -73,8 +73,21 @@ For the continuious probability function $f_X(x) = 3(1-x)^2\,I_{(0,1)}(x),$ the 
 \end{aligned}\]
 Set $C = 1$, $F_X = 0$ for $x < 0$ and $F_X = 1$ for $x > 1$, and then 
 \[F_X(x) = (x-1)^3 + 1\,I_{(0,1)}(x)\] is a valid distribution function. As $n$ increases, we expect $\max\{X_1, ...\,, X_n\}$ to approach the maximum value, which is $x = 1$. Using the distribution function, we can say that for all $X_i$ with $0<i<n$,
-\[ P(X_i \leq 1 - \epsilon) = \left((1-\epsilon)-1\right)^3+1 = 1 - \epsilon^3\]
+\[ P(X_i \leq x) = (x-1)^3 + 1.\] Since the $X_i$ are independent of each other, the probability that all $X_i$ in the series $X_1, X_2, ... , X_n$ are less than $x$ is \[P\left(\text{max}\{X_1, ... , X_n\} < x\right) = \left((x-1)^3 + 1\right)^n.\]
+This is the definition of a distribution function 
+\[F_{\text{max}}(x) = \begin{cases}
+0, &x < 0 \\
+\left((x-1)^3 + 1\right)^n, &0\leq x \leq1 \\
+1, & x > 1.\end{cases}\] The limit of this distribution in $n$ is 
+\[F_{\text{max}}(x) = \begin{cases}
+0, &x < 1 \\1, & x \geq 1.\end{cases}\]
 
+\iffalse
+, we can determine the probability that any one $_i$ is more than $\epsilon$ away from the maximum possible value, $1$. Wwe can say that for all $X_i$ with $0<i<n$,
+\[ P(X_i \leq 1 - \epsilon) = \left((1-\epsilon)-1\right)^3+1 = 1 - \epsilon^3\] for $x = 1 - \epsilon; \,\,0 \leq \epsilon \leq 1$. Since the $X_i$ are independent of each other, the probability that all $X_i$ in the series $X_1, X_2, ... , X_n$ are less than $1-\epsilon$ is \[P\left(\text{max}\{X_1, ... , X_n\} < 1 - \epsilon\right) = \left(1-\epsilon^3\right)^n.\]
+This is the definition of a distribution function \[F_{\text{max}}(1-\epsilon) = \left(1-\epsilon^3\right)^n\,I_\epsilon(0,1).\] The distribution function for $T_n$ can thus be obtained as 
+\[T_n(1-\epsilon) = n^{1/3}\left(1-\left(1-\epsilon^3\right)^n\right)\,I_\epsilon(0,1).\]
+\fi
 
 \iffalse
 We can now use Theorem 5.4.4 from the textbook to find an expression for the probability function of $\max\{X_1, ...\,, X_n\}$, the $n$-th order statistic of $X$:
