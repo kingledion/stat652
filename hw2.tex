@@ -66,17 +66,26 @@ For $T_n = X_n - E(X_n)$, \[\lim_{n\to\infty} T_n = \lim_{n\to\infty} X_n - \lim
 \fi
 
 \subsection*{Problem 3}
-For the continuious probability function $f_X(x) = 3(1-x)^2\,I_{(0,1)}(x),$ the cumulative distribution function is obtained by integration \[F_X(x) = \int 3(1-x)^2\,I_{(0,1)}(x)\,dx = x^3 -3x^2 +3x + C.\] For the bounds of the probability function $0$ and $1$, the values of $F_X$ are 
+For the continuious probability function $f_X(x) = 3(1-x)^2\,I_{(0,1)}(x),$ the cumulative distribution function is obtained by integration \[F_X(x) = \int 3(1-x)^2\,I_{(0,1)}(x)\,dx = (x-1)^3 + C.\] For the bounds of the probability function $0$ and $1$, the values of $F_X$ are 
 \[\begin{aligned}
-x^3 -3x^2 +3x + C\,\big|_0 &= C \\
-x^3 -3x^2 +3x + C\,\big|_1 &= 1-3+3+C = 1+C.
+(x-1)^3 + C\,\big|_0 &= -1 + C \\
+(x-1)^3 + C\,\big|_1 &= C.
 \end{aligned}\]
-Set $C = 0$, $F_X = 0$ for $x < 0$ and $F_X = 1$ for $x > 1$. Since the integral \[F_X(x) =  \int_0^1 3(1-x)^2\,I_{(0,1)}(x)\,dx = 1,\] $F_X = x(x^2-3x-3)\,I_{(0,1)}(x)$ is a valid distribution function. We can now use Theorem 5.4.4 from the textbook to find an expression for the probability function of $\max\{X_1, ...\,, X_n\}$, the $n$-th order statistic of $X$:
+Set $C = 1$, $F_X = 0$ for $x < 0$ and $F_X = 1$ for $x > 1$, and then 
+\[F_X(x) = (x-1)^3 + 1\,I_{(0,1)}(x)\] is a valid distribution function. As $n$ increases, we expect $\max\{X_1, ...\,, X_n\}$ to approach the maximum value, which is $x = 1$. Using the distribution function, we can say that for all $X_i$ with $0<i<n$,
+\[ P(X_i \leq 1 - \epsilon) = \left((1-\epsilon)-1\right)^3+1 = 1 - \epsilon^3\]
+
+
+\iffalse
+We can now use Theorem 5.4.4 from the textbook to find an expression for the probability function of $\max\{X_1, ...\,, X_n\}$, the $n$-th order statistic of $X$:
 \[\begin{aligned}
 f_{X_{(n)}}(x) &= \frac{n!}{(n-1)!(n-n)!}f_X(x)\left[F_X(x)\right]^{n-1}\left[1-F_X(x)\right]^{n-n} \\
-&= n\,f_X(x)\left[F_X(x)\right]^{n-1}
+&= n\,f_X(x)\left[F_X(x)\right]^{n-1} \\
+&= n\left(3(1-x)^2\right)\left[(x-1)^3 + 1\right]^{n-1}I_{(0,1)}(x)
 \end{aligned}\]
+
 On the domain $0<x<1$. We can find an expression for \[T_n = n^{1/3}\left(1-n\,f_X(x)\left[F_X(x)\right]^{n-1}.\right)\] While considering the limit with respect to $n$ of this function, it is important to note that $F_X \leq 1$ for all $x$ in the domain since it is a distribution function; therefore, $\left[F_X(x)\right]^{n-1}$ tends to zero as $n$ tends to infinity.
+\fi
 
 \subsection*{Problem 4}
 The moment generating function of the sum of intependent random variables in the sequence $X_1, X_2, ...$ is 
@@ -105,7 +114,8 @@ Since $e^{-\frac{1}{k^2}} <= 1 $ for all integers $k > 0$, then $k^{-2j}e^{-\fra
 \fi
 
 \subsection*{Problem 5}
-The joint distrubution of multiple Bernoulli random variables is the distribution of binomial random variable. For Bernoulli random varialbes $X_i$ with mean $p = 1/2$, \[\sum_{i=1}^n X_i = nE(X_i) = n^2p = \frac{1}{2}n^2.\] Since $X_i$ is a Bernoulli variable, the only possible outcomes are $0$ and $1$. Since $0^2=0$ and $1^2=1$, \[\sum_{i=1}^n X_i^2 = \sum_{i=1}^n X_i = \frac{1}{2}n^2.\] Therefore, \[T_n = \sqrt{n}\left(\frac{4\sum_{i=1}^2 X_i - 2n}{\sum_{i=1}^n X_i^2}\right) = \sqrt{n}\left(\frac{2n^2-2n}{1/2n^2}\right) = \frac{4}{\sqrt{n}}(n-1)\]
+The sum of the distributions of multiple Bernoulli random variables is the binomial distribution. For Bernoulli random variables $X_i$ with mean $p = 1/2$, as $n$ goes to infinity, \[\sum_{i=1}^n X_i = nE(X_i) = n^2p = \frac{1}{2}n^2\] due to the Law of Large Numbers. Since $X_i$ is a Bernoulli variable, the only possible outcomes are $0$ and $1$. Since $0^2=0$ and $1^2=1$, $X_i^2 = X_i$, and \[\sum_{i=1}^n X_i^2 = \sum_{i=1}^n X_i = \frac{1}{2}n^2.\] Therefore, as $n\to\infty$, \[\lim_{n\to\infty}T_n = \lim_{n\to\infty}\sqrt{n}\left(\frac{4\sum_{i=1}^2 X_i - 2n}{\sum_{i=1}^n X_i^2}\right) =\lim_{n\to\infty} \sqrt{n}\left(\frac{2n^2-2n}{1/2n^2}\right) = \lim_{n\to\infty}4\left(\sqrt{n} - \frac{1}{\sqrt{n}}\right).\]
+This limit goes to infinity. Therefore, as $n$ goes to infinity, the sequence  $T_1, T_2, ...$ does not converge. 
 
 \subsection*{Problem 6}
 \subsubsection*{Part a}
@@ -145,7 +155,7 @@ and
 \[g(T(\mathbf{x})|\theta) = (\theta+1)^n \exp\left(\theta\sum_{k=1}^n \log{x_k}\right),\]
 so 
 \[T(\mathbf{x}) = \sum_{k=1}^n \log{x_k}\]
-is a sufficiency statistic for $\theta$ for every $x$ in the sample space. 
+is a sufficient statistic for $\theta$ for every $x$ in the sample space. 
 
  
 
