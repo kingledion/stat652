@@ -16,12 +16,12 @@
 
 \subsection*{Problem 1}
 
-For mass function $$f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)$$ the distribution function over the same domain is obtained by integration $$F_{T_n}(t) = (8nt - 4n^2t^2 + C)\, I_{(1/2n, 1/n)}(t).$$ To be a valid distrubition function, $F$ must equal 0 at the lower bound of the domain, $t = 1/2n$, and equal 1 at the upper bound $t = 1/n$. At theses bounds, $F$ evaluates to 
+For probability function $$f_{T_n}(t) = (8n-8n^2t)\, I_{(1/2n, 1/n)}(t)$$ the distribution function over the same domain is obtained by integration $$F_{T_n}(t) = (8nt - 4n^2t^2 + C)\, I_{(1/2n, 1/n)}(t).$$ To be a valid distrubition function, $F$ must equal 0 at the lower bound of the domain, $t = 1/2n$, and equal 1 at the upper bound $t = 1/n$. At theses bounds, $F$ evaluates to 
 \[\begin{aligned}
 F_{T_n}(1/2n) &= \frac{8n}{2n} - \frac{4n^2}{(2n)^2} + C &= 3 + C \\
 F_{T_n}(1/n)&= \frac{8n}{n} - \frac{4n^2}{n^2} + C &= 4 + C.
 \end{aligned}\]
-Therefore $C = -3$, $F(t) = 0$ for $ t<1/2n$ and $F(t) = 1$ for $ t > 1/n$, and \[F_{T_n}(t) = (8nt - 4n^2t^2 -3)\, I_{(1/2n, 1/n)}(t)\] meets the requirements of a distrubution function for all $n$. As $n$ approaches infinity, the range of $I_{(1/2n, 1/n)}(t)$ approaches the point $0$. We have already defined the $F(t) = 1$ for $ t > 1/n$, so we can say that \[lim_{n\to\infty} F_{T_n}(t) = 1\quad \forall t > 0.\] Thus, the limiting distribution of $F_{T_n}(t)$ approaches $F(t)$, where $F(t)$ is 
+Therefore $C = -3$, $F(t) = 0$ for $ t<1/2n$ and $F(t) = 1$ for $ t > 1/n$, and \[F_{T_n}(t) = (8nt - 4n^2t^2 -3)\, I_{(1/2n, 1/n)}(t)\] meets the requirements of a distrubution function for all $n$. As $n$ approaches infinity, the range of $I_{(1/2n, 1/n)}(t)$ approaches the point $0$. We have already defined the $F(t) = 1$ for $ t > 1/n$, so we can say that \[\lim_{n\to\infty} F_{T_n}(t) = 1\quad \forall t > 0.\] Thus, the limiting distribution of $F_{T_n}(t)$ approaches $F(t)$, where $F(t)$ is 
 \[F(t) = \begin{cases}
 0, &t < 0 \\
 1, &t \geq 0 \end{cases}\] The probability function of the limiting distribution for the sequence $T_1, T_2, ...$ is the derivative of the distribution function, and is 
@@ -42,7 +42,7 @@ For $f_{X_n}(x)$,
 0, &\textrm{otherwise}. 
 \end{dcases}\]
 \fi
-the moment-generating function is calculated by \[M_X(t) = \sum_{x\in A}e^{tx}p(x) = e^{t\cdot 0}\left(\frac{n-1}{n}\right) + e^{tn^2}\left(\frac{1}{n}\right) = \frac{1}{n}\left(e^{tn^2} + n - 1\right).\] To calculate the $E(X_n)$ we need the first $t$ derivative of $M_X$, \[M'_X(t) = \frac{d}{dt}\frac{1}{n}\left(e^{tn^2} + n - 1\right) = ne^{tn^2},\] so that \[E(X_n) = M'_X(0) = ne^{0\cdot n^2} = n.\]
+the moment-generating function is calculated by \[M_X(t) = \sum_{x\in A}e^{tx}p(x) = e^{t\cdot 0}\left(\frac{n-1}{n}\right) + e^{tn^2}\left(\frac{1}{n}\right) = \frac{1}{n}\left(e^{tn^2} + n - 1\right).\] To calculate the $E(X_n)$ we need the first $t$ derivative of $M_X$, \[M'_X(t) = \frac{d}{dt}\left[\frac{1}{n}\left(e^{tn^2} + n - 1\right)\right] = ne^{tn^2},\] so that \[E(X_n) = M'_X(0) = ne^{0\cdot n^2} = n.\]
 Thus,
 \[\begin{aligned}
 T_n &= X_n - E(X_n) \\
@@ -58,7 +58,7 @@ The cumulative distribution function is
 \[F_{T_n}(x) = \begin{cases}
 0, & x < -n \\
 \frac{n-1}{n}, & -n \leq x < n^2 - n \\
-1, &n \geq n^2 - n.
+1, &x \geq n^2 - n.
 \end{cases}\]
 As $n\to\infty$, the term $(n-1)/n$ approaches 1, so
 \[\lim_{n\to\infty} F_{T_n} = \begin{cases}
@@ -78,7 +78,7 @@ For the continuious probability function $f_X(x) = 3(1-x)^2\,I_{(0,1)}(x),$ the 
 (x-1)^3 + C\,\big|_1 &= C.
 \end{aligned}\]
 Set $C = 1$, $F_X = 0$ for $x < 0$ and $F_X = 1$ for $x > 1$, and then 
-\[F_X(x) \begin{cases}
+\[F_X(x) = \begin{cases}
 0, &x<0\\
 (x-1)^3 + 1, & 0<x<1 \\
 1, &x>1\end{cases}\] is a valid distribution function. Since the maxium possible value of the probability function is $x=1$, we expect $X_{(n)}$ to converge to 1 as more random variables are added to the sequence. Since we expect the sequence of maxima to converge to $1$, we can say that it will converge to a random variable $X=1$. To apply this to Definition 5.5.1, we solve for 
@@ -88,7 +88,7 @@ P\left(\left|X_{(n)}-1\right|\geq\epsilon\right) &= P\left(X_{(n)}\geq 1+\epsilo
 \end{aligned}\]
 Using the distribution function for $X_i$, and a change of variables from $0 < x < 1$ to $0 < (1-\epsilon) < 1$, we can say that for all $X_i$ with $1\leq i\leq n$,
 \[ P(X_i \leq 1 - \epsilon) = \left((1-\epsilon)-1\right)^3+1 = 1 - \epsilon^3.\]
-Since the $X_i$ are independent of each other, the probability that all $X_i$ in the series $X_1, X_2, ... , X_n$ are less than $1-\epsilon$ is \[P\left(X_{(n)} < 1 - \epsilon\right) = \left(1-\epsilon^3\right)^n.\] This goes to zero for all $\epsilon > 0$, therefore the maximum is proven to converge to $1$. We can now change variables againt to $\epsilon = t/n^{1/3}$ where since $n \geq 1$, $t > 0$ to match ranges. We then get
+Since the $X_i$ are independent of each other, the probability that all $X_i$ in the series $X_1, X_2, ... , X_n$ are less than $1-\epsilon$ is \[P\left(X_{(n)} < 1 - \epsilon\right) = \left(1-\epsilon^3\right)^n.\] This goes to zero for all $\epsilon > 0$, therefore the maximum is proven to converge to $1$. We can change variables again to $\epsilon = t/n^{1/3}$ where since $n \geq 1$, $t > 0$ to match ranges. We then get
 \[\begin{aligned}
 P\left(X_{(n)} \leq 1 - t/n^{1/3}\right) &= \left(1-\left(\frac{t}{n^{1/3}}\right)^3\right)^n = \left(1-\frac{t^3}{n}\right)^n \to \left(e^{-t^3}\right)\, I_{(0,\infty)}(t) \\
 P\left(n^{1/3}\left(1-X_{(n)}\right)\leq t\right) &\to \left(1 - e^{-t^3}\right)\,I_{(0,\infty)}(t).
@@ -99,9 +99,9 @@ Therefore, as $n$ goes to infinity, the sequence $T_1, T_2, ...$ converges to th
 
 \subsubsection*{Part b}
 By Theorem 5.5.4, if $X_1, X_2, ...$ converges in probability to $X$, and $h$ is a continuous function, then $h(X_1), h(X_2), ...$ converges in probability to $h(X)$. Let $h(y) = \sqrt{y}$ and 
-\[V_n = h(T_n) = \sqrt(T_n).\] Since we know that $T_n$ converges to 
+\[V_n = h(T_n) = \sqrt{(T_n)}.\] Since we know that $T_n$ converges to 
 \[3\,t^2\,e^{-t^3}\,I_{(0,\infty)}(t),\] then $V_n$ converges to 
-\[\sqrt{ 3\,t^2\,e^{-t^3}}\,I_{(0,\infty)}(t) = \sqrt{3}t\exp{\left(\frac{-t^3}{2}\right)}\]
+\[\sqrt{ 3\,t^2\,e^{-t^3}}\,I_{(0,\infty)}(t) = \sqrt{3}\,t\exp{\left(\frac{-t^3}{2}\right)}\,I_{(0,\infty)}(t)\]
 
 
 
@@ -162,8 +162,17 @@ Since $e^{-\frac{1}{k^2}} <= 1 $ for all integers $k > 0$, then $k^{-2j}e^{-\fra
 \fi
 
 \subsection*{Problem 5}
+For iid randm variables $X_1, X_2, ...$, the sample mean $\bar{X}$ is $(1/n)\sum X_i$. In otherwords, 
+\[\sum_{i=1}^{n}X_i = n\bar{X}.\]
+Since $X_i$ is a Bernoulli variable, the only possible outcomes are $0$ and $1$. $0^2=0$ and $1^2=1$, $X_i^2 = X_i$, and \[\sum_{i=1}^n X_i^2 = \sum_{i=1}^n X_i = n\bar{X}.\] We can re-write the formula for $T_n$ as 
+\[T_n = \sqrt{n}\left(\frac{4n\bar{X}-2n}{n\bar{X}}\right) = \sqrt{n}\left(\frac{\bar{X} - \frac{1}{2}}{\frac{1}{4}\bar{X}}\right).\]
+By the Central Limit Theorem, this function has a limiting standard normal distribution with $\mu = 1/2$ and $\sigma = (1/4)\bar{X}$. We can find $\bar{X}$ by the Law of Large numbers
+\[\lim_{n\to\infty}\bar{X_n} = \mu = p = \frac{1}{2}\] as given in the problem statement. Therefore, as $n\to\infty$, the sequence $T_1, T_2, ...$ converges to a limiting distribution of Normal$(1/2, 1/8)$. 
+
+\iffalse
 The sum of the distributions of multiple Bernoulli random variables is the binomial distribution. For Bernoulli random variables $X_i$ with mean $p = 1/2$, as $n$ goes to infinity, \[\sum_{i=1}^n X_i = nE(X_i) = n^2p = \frac{1}{2}n^2\] due to the Law of Large Numbers. Since $X_i$ is a Bernoulli variable, the only possible outcomes are $0$ and $1$. Since $0^2=0$ and $1^2=1$, $X_i^2 = X_i$, and \[\sum_{i=1}^n X_i^2 = \sum_{i=1}^n X_i = \frac{1}{2}n^2.\] Therefore, as $n\to\infty$, \[\lim_{n\to\infty}T_n = \lim_{n\to\infty}\sqrt{n}\left(\frac{4\sum_{i=1}^2 X_i - 2n}{\sum_{i=1}^n X_i^2}\right) =\lim_{n\to\infty} \sqrt{n}\left(\frac{2n^2-2n}{1/2n^2}\right) = \lim_{n\to\infty}4\left(\sqrt{n} - \frac{1}{\sqrt{n}}\right).\]
 This limit goes to infinity. Therefore, as $n$ goes to infinity, the sequence  $T_1, T_2, ...$ does not converge. 
+\fi
 
 \subsection*{Problem 6}
 \subsubsection*{Part a}
