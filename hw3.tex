@@ -67,7 +67,7 @@ L(\theta|x) &= \prod_{i=1}^n\frac{3x^2}{\theta^3}I_{(0,\theta]}(x) \\
 &=\begin{cases} \frac{3^n}{\theta^{3n}}\prod_{i=1}^n x_i^2 & \theta \geq x_{(n)} \\ 0 & \theta < x_{(n)} \end{cases}
 \end{align*}
 \[\frac{dL(\theta|x)}{d\theta} = \frac{-n3^{n+1}}{\theta^{3n+1}}\prod_{i=0}^n x_i^2\]
-This derivative is always negative, but never reaches zero. Since the derivative is negative, $L$ is always decreasing on $(x_{(n)}, \infty)$. Therefore, the maximum value of the likelihood function is attained when $\hat{\theta}_{MLE} = x_{(n)}$.
+This derivative is always negative, but never reaches zero. Since the derivative is negative, $L$ is always decreasing on $(x_{(n)}, \infty)$. Therefore, the maximum value of the likelihood function is attained when $\hat{\theta}_{MLE} = X_{(n)}$.
 \subsubsection*{c.}
 \begin{align*}
 \int f(x|\theta) &= \int \frac{3x^2}{\theta^3}dx = \frac{x^3}{\theta^3}\\
@@ -93,7 +93,7 @@ Since $\theta \in (0, 1/2)$, only the lower of the two roots is applicable, so \
 
 \subsubsection*{b.}
 \begin{align*}
-L(\theta|n_1=11, n_2=5, n_3=9) &= \frac{25!}{11!\,5!\,9!} \left(\theta\right)^11\left(\theta(1-\theta)\right)^5\left(\left(1-\theta\right)^2\right)^9 \\
+L(\theta|n_1=11, n_2=5, n_3=9) &= \frac{25!}{11!\,5!\,9!} \left(\theta\right)^{11}\left(\theta(1-\theta)\right)^5\left(\left(1-\theta\right)^2\right)^9 \\
 &=C\theta^{16}\left(1-\theta\right)^{23}
 \end{align*}
 where $C = 25!/(11!\,5!\,9!) = 8923714800$.
@@ -109,7 +109,7 @@ Set this derivative equal to zero to solve for maximum:
 Check the second derivative to ensure that this is a global maximum:
 \[\frac{d^2\mathcal{L}(\theta)}{d\theta^2} = -\frac{16}{\theta^2}-\frac{23}{(\theta-1)^2}\]
 Since the second derivative is always negative, $\hat{\theta}_{MLE} = 0.410$ is a global maximum of the likelihood function. 
-
+\pagebreak
 \subsection*{Problem 4}
 \subsubsection*{a.}
 \begin{align*}
@@ -119,10 +119,11 @@ m_1 = \bar{X},\quad\quad \mu_1^\prime&=\frac{1+\theta x}{2}I_{[-1,1]}(x) \\
 &= \frac{\theta}{3} \\
 \hat{\theta}_{MME} &= 3\bar{X}
 \end{align*}
+This estimator is not very good, since it can take a value outside of its range. 
 \subsubsection*{b.}
 \[L(\theta|x) = \frac{1+\theta x_1}{2}\]
 The range of both $x$ and $\theta$ are $[-1,1]$. If $x>0$, then likelihood increases with increasing $\theta$, so maximum likelihood is when $\theta =1$. If $x<0$, likelihood decreases with increasing $\theta$, so maximum likelihood is when $\theta = -1$. If $x=0$, likelihood is a constant $1/2$ for all $\theta$. Therefore the maximum likelihood expression is 
-\[\theta = \begin{cases}1 & x > 0 \\ [-1,1] & x = 0 \\-1 & x < 0\end{cases}\]
+\[\bar{\theta}_{MLE} = \begin{cases}1 & X_1 > 0 \\ [-1,1] & X_1 = 0 \\-1 & X_1 < 0\end{cases}\]
 \subsubsection*{c.}
 \begin{align*}
 L(\theta|x_1=0.5,x_2=-0.1,x_3=0.9,x_4=-0.5) &= \prod_{(i=1}^4 \frac{1+\theta x}{2} \\
@@ -132,22 +133,18 @@ L(\theta|x_1=0.5,x_2=-0.1,x_3=0.9,x_4=-0.5) &= \prod_{(i=1}^4 \frac{1+\theta x}{
 \frac{d^2L(\theta)}{dx^2} &= \frac{1}{16}(.27\theta^2-1.2\theta-.68)
 \end{align*}
 To use Newton's method to find the roots of the first derivative of the likelihood function, we will need the second derivative. Also, we need an intial estimate. Since $\bar{X}$ is $0.2$, our initial estimate based on the MME is $3(0.2) = 0.6$. I will solve using a Python program written for STAT654, posted here:
+\pagebreak
 \begin{verbatim}
 # input function f as a function of x
 def f(x):
-        return (1/16)*(0.09*x**3-0.6*x**2-0.68*x+0.8)
-        
+        return (1/16)*(0.09*x**3-0.6*x**2-0.68*x+0.8)       
 #Derivative of f
 def dfdx(x):
-        return (1/16)*(0.27*x**2-1.2*x-0.68)
-        
+        return (1/16)*(0.27*x**2-1.2*x-0.68)       
 # number of iterations
 it = 10
-
 # initial guess
 x_n = 0.6
-
-
 # perform iteration
 x_n = float(x_n)
 for i in range(it):
@@ -155,7 +152,6 @@ for i in range(it):
     print("Iteration {1}: {4:.2f} = {0:.2f} - {2:.2f}/{3:.2f}".format(x_n,
                                                           i, f(x_n), dfdx(x_n), x_nplus))
     x_n = x_nplus
-
 print("Value of x_n: {0:.5f}".format(x_n))
 \end{verbatim}
 
@@ -180,20 +176,25 @@ We can verify that this is a maxima by looking at the graph of the likelihood fu
 Thus $\hat{\theta}_{MLE}=0.743$ is the maximum within $[-1,1]$. 
 
 \subsection*{Problem 5}
-\begin{align*}
-m_1 &= \bar{X} = 0.51\bar{66} \\
-m_2 &= \frac{1}{n}\sum^n_{i=1}x_i^2 = 1.3113 \\ \\
-\mu_i^\prime &= E\left[\frac{1}{2\delta}I_{[\gamma-\delta, \gamma+\delta]}(u)\right] \\ 
+\begin{equation*}
+\begin{split}
+m_1 &= \bar{X} = 0.51\bar{66} \\ \\
+\mu_1^\prime &= E\left[\frac{1}{2\delta}I_{[\gamma-\delta, \gamma+\delta]}(u)\right] \\ 
 &= \int^{\gamma+\delta}_{\gamma-\delta}\frac{1}{2\delta}udu \\
 &=\frac{1}{4\delta}\left.u^2\right|^{\gamma+\delta}_{\gamma-\delta} = \frac{1}{4\delta}\left(4\gamma\delta\right)\\
-& = \gamma \\ \\
+& = \gamma 
+\end{split}
+\begin{split}\hspace{1in}\end{split}
+\begin{split}
+m_2 &= \frac{1}{n}\sum^n_{i=1}x_i^2 = 1.3113 \\ \\
 \mu_2^\prime &= E\left[\left(\frac{1}{2\delta}\right)^2 I_{[\gamma-\delta, \gamma+\delta]}(u)\right] \\
 &= \int^{\gamma+\delta}_{\gamma-\delta}\frac{1}{4\delta^2}udu \\
 &= \frac{1}{8\delta^2}\left(4\gamma\delta\right) \\
 &= \frac{\gamma}{2\delta}
-\end{align*}
+\end{split}
+\end{equation*}
 \begin{align*}
-\hat{\gamma}_{MLE} & = m_1 = 0.517 \\
+\hat{\gamma}_{MLE} & = \bar{X} = 0.517 \\
 \hat{\delta}_{MLE} & = \frac{\gamma}{2m_2} = \frac{0.51\bar{66}}{2\cdot1.3113} = 0.197
 \end{align*}
 
