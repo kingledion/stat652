@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{txfonts}
+\usepackage{fancyhdr}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}%
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+\fancyhead[R]{\null\hfill\begin{tabular}[t]{l@{}}
+	\textbf{Daniel Hartig} \\
+	Stat 652 \\
+	Homework 4
+\end{tabular}}
+\setlength{\headheight}{4\baselineskip}
+
+
+
+\subsection*{Problem 1}
+\subsubsection*{a.}
+\begin{align*}
+f(\mathbf{x}|\theta)&=\prod_{i=0}^n\left[\frac{1}{2\theta}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)}I_{(0,\infty)}(x_i)\right] \\
+&=\frac{1}{2^n\theta^{2n}}\exp{\left(\frac{-1}{\theta}\sum_{i=0}^n\sqrt{x_i}\right)}\prod_{i=0}^nI_{(0,\infty)}(x_i)
+\end{align*}
+Let 
+\[
+c(\theta)=\frac{1}{2^n\theta^{2n}}, \qquad h(x)=\prod_{i=0}^n I_{(0,\infty)}(x_i), \qquad w_1=\frac{-1}{\theta}, \qquad t = \sum_{i=0}^n\sqrt{x_i}
+\]
+\iffalse
+Due to factorization (Theorem 6.2.6), $T(\mathbf{x}) = \sum_{i=0}^n\sqrt{x_i}$ is a sufficient statistic for $\theta$. 
+\fi
+Since
+\begin{align*}
+\left\{w_1(\theta):\theta \in \Theta\right\}\quad \rightarrow\quad \left\{\frac{-1}{\theta}:\theta > 0\right\}\quad \rightarrow\quad \left(-\infty, 0\right)
+\end{align*} 
+contains an open set on $\mathbb{R}^\prime$, $T(\mathbf{x}) = \sum_{i=0}^n\sqrt{x_i}$ is a complete sufficient statistic. The expectation of any $X$ can be calculated as 
+\begin{align*}
+E(X) &= \int_0^\infty x\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)} dx \\
+&=\left.\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x}}{\theta}\right)}\left(-12\theta^4-12\theta^3\sqrt{x}-6\theta^2x-\theta x^{3/2}\right)\right|_0^\infty &\text{solved with Wolfram Alpha} \\
+&=\left.\exp{\left(\frac{-\sqrt{x}}{\theta}\right)}\left(-6\theta^2-6\theta\sqrt{x}-3x-\frac{1}{2\theta}x^{3/2}\right)\right|_0^\infty \\
+&= e^{-\infty}(...)-e^0\left(-6\theta^2-0\right) = 6\theta^2
+\end{align*}
+Using a similar derivation, the expectation of $\sqrt{X}$ is
+\begin{align*}
+E(\sqrt{X}) &= \int_0^\infty \sqrt{x}\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)} dx \\
+&=\left.\exp{\left(\frac{-\sqrt{x}}{\theta}\right)}\left(-2\theta-2\sqrt{x}-\frac{1}{\theta}x\right)\right|_0^\infty &\text{solved with Wolfram Alpha} \\
+&=2\theta
+\end{align*}
+To find an unbiased estimator, we investigate the expectation of $T(\mathbf{x})$,
+\begin{align*}
+E\left(T(\mathbf{x})\right) &= E\left(\sum_{i=0}^n\sqrt{x_i}\right) \\
+&=\sum_{i=0}^n E\left(\sqrt{x_i}\right) \\
+&=n(2\theta)
+\end{align*}
+Therefore, the expectation of $\hat{\theta} = T/2n$, \[E(\hat{\theta}) = E\left(\frac{T}{2n}\right) = \theta\] shows that $\hat{\theta}$ is an unbiased estimator of $\theta$. Since it is also a function of a complete sufficient statistic of $\theta$, by Theorem 7.3.23, $\hat{\theta}$ is the unique best unbiased estimator of $\theta$.
+
+\subsubsection*{b.}
+The Carmer-Rao lower bound for the variance of $\hat{\theta}$ given that $\hat{\theta}$ is a function of $T(\mathbf{X})$ and $X_1, X_2, ...$ are iid variables is given by 
+\[\frac{1}{nE_\theta\left(\left[\frac{d}{d\theta}\log f(X|\theta)\right]^2\right)}.\]
+We resolve the denominator using values of expectation from part a, 
+\begin{align*}
+\frac{d}{d\theta}\log f(X|\theta) &= \frac{d}{d\theta}\left(-2\log(\sqrt{2}\theta)-\frac{\sqrt{x}}{\theta}\right) = \frac{-2}{\theta}+\frac{\sqrt{x}}{\theta^2} \\
+\left(\frac{d}{d\theta}\log f(X|\theta)\right)^2 &= \frac{4}{\theta^2}-\frac{4\sqrt{x}}{\theta^3}+\frac{x}{\theta^4} \\
+E\left[\left(\frac{d}{d\theta}\log f(X|\theta)\right)^2\right] &= E\left[\frac{4}{\theta^2}-\frac{4\sqrt{x}}{\theta^3}+\frac{x}{\theta^4}\right] = \frac{4}{\theta^2}-\frac{4E(\sqrt{x})}{\theta^3}+\frac{E(x)}{\theta^4} \\
+&=\frac{4}{\theta^2} - \frac{8\theta}{\theta^3}+\frac{6\theta^2}{\theta^4} = \frac{2}{\theta^2}
+\end{align*}
+which gives us a Cramer-Rao lower bound of 
+\[\frac{\theta^2}{2n}\]
+
+\subsubsection*{c.}
+\begin{align*}
+\mathrm{Var}{(\hat{\theta})} &= \frac{1}{4n^2}\mathrm{Var}(T) = \frac{1}{4n^2}\mathrm{Var}\left(\sum_{i=0}^n \sqrt{X_i}\right) = \frac{1}{4n^2}\sum_{i=0}^n \mathrm{Var}(\sqrt{X_i})\\
+&=\frac{n}{4n^2}\left(E(X)-\left[E(\sqrt{X})\right]^2\right) \\
+&=\frac{1}{4n}\left[6\theta^2-(2\theta)^2\right] \\
+&= \frac{\theta^2}{2n}
+\end{align*}
+
+\subsubsection*{d.}
+From part a we see that 
+\[E\left(T(\mathbf{x})\right)=2n\theta.\]
+Therefore, to find an unbiased estimator for $6\theta^2$, we investigate $T^2$ using information from part c,
+\begin{align*}
+E\left(T^2\right) &= \mathrm{Var}(T) + \left[E(T)\right]^2 \\
+&=2n\theta^2 + (2n\theta)^2 \\
+&=2n(n+1)\theta^2
+\end{align*}
+Thus \[\widehat{6\theta^2} = \frac{3T^2}{n(n+1)}; \qquad E\left(\widehat{6\theta^2}\right) = E\left(\frac{3T^2}{n(n+1)}\right) = \frac{3E\left(T^2\right)}{n(n+1)} = 6\theta^2\] 
+is an unbiased estimator for $6\theta^2$. Since it is also a function of $T(\mathbf{x})$, and we have determined that this is a complete, sufficient statistic in part a, by Theorem 7.3.23, $\widehat{6\theta^2}$ is the unique best unbiased estimator of $6\theta^2$.
+
+\subsubsection*{e.}
+
+
+
+
+\end{document}
