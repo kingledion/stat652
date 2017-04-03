@@ -59,7 +59,7 @@ E\left(T(\mathbf{x})\right) &= E\left(\sum_{i=0}^n\sqrt{x_i}\right) \\
 &=\sum_{i=0}^n E\left(\sqrt{x_i}\right) \\
 &=n(2\theta)
 \end{align*}
-Therefore, the expectation of $\hat{\theta} = T/2n$, \[E(\hat{\theta}) = E\left(\frac{T}{2n}\right) = \theta\] shows that $\hat{\theta}$ is an unbiased estimator of $\theta$. Since it is also a function of a complete sufficient statistic of $\theta$, by Theorem 7.3.23, $\hat{\theta}$ is the unique best unbiased estimator of $\theta$.
+Therefore, the expectation of $\hat{\theta} = T(\mathbf{x})/2n$, \[E(\hat{\theta}) = E\left(\frac{T}{2n}\right) = \theta\] shows that $\hat{\theta}$ is an unbiased estimator of $\theta$. Since it is also a function of a complete sufficient statistic of $\theta$, by Theorem 7.3.23, $\hat{\theta}$ is the unique best unbiased estimator of $\theta$.
 
 \subsubsection*{b.}
 The Carmer-Rao lower bound for the variance of $\hat{\theta}$ given that $\hat{\theta}$ is a function of $T(\mathbf{X})$ and $X_1, X_2, ...$ are iid variables is given by 
@@ -72,7 +72,7 @@ E\left[\left(\frac{d}{d\theta}\log f(X|\theta)\right)^2\right] &= E\left[\frac{4
 &=\frac{4}{\theta^2} - \frac{8\theta}{\theta^3}+\frac{6\theta^2}{\theta^4} = \frac{2}{\theta^2}
 \end{align*}
 which gives us a Cramer-Rao lower bound of 
-\[\frac{\theta^2}{2n}\]
+\[\frac{1}{n\cdot\frac{2}{\theta^2}} = \frac{\theta^2}{2n}.\]
 
 \subsubsection*{c.}
 \begin{align*}
@@ -83,19 +83,41 @@ which gives us a Cramer-Rao lower bound of
 \end{align*}
 
 \subsubsection*{d.}
-From part a we see that 
+We can reuse the complete, sufficient statistic $T(\mathbf{x})$ that we derived in part a. From part a we see that 
 \[E\left(T(\mathbf{x})\right)=2n\theta.\]
 Therefore, to find an unbiased estimator for $6\theta^2$, we investigate $T^2$ using information from part c,
 \begin{align*}
 E\left(T^2\right) &= \mathrm{Var}(T) + \left[E(T)\right]^2 \\
 &=2n\theta^2 + (2n\theta)^2 \\
-&=2n(n+1)\theta^2
+&=2n(2n+1)\theta^2
 \end{align*}
-Thus \[\widehat{6\theta^2} = \frac{3T^2}{n(n+1)}; \qquad E\left(\widehat{6\theta^2}\right) = E\left(\frac{3T^2}{n(n+1)}\right) = \frac{3E\left(T^2\right)}{n(n+1)} = 6\theta^2\] 
+Thus \[\widehat{6\theta^2} = \frac{3T^2}{n(2n+1)}; \qquad E\left(\widehat{6\theta^2}\right) = E\left(\frac{3T^2}{n(2n+1)}\right) = \frac{3E\left(T^2\right)}{n(2n+1)} = 6\theta^2\] 
 is an unbiased estimator for $6\theta^2$. Since it is also a function of $T(\mathbf{x})$, and we have determined that this is a complete, sufficient statistic in part a, by Theorem 7.3.23, $\widehat{6\theta^2}$ is the unique best unbiased estimator of $6\theta^2$.
 
 \subsubsection*{e.}
+Let $\tau(\theta) = 6\theta^2$, so that $\tau^\prime(\theta) = 12\theta$. Then the Cramer-Rao lower bound is given by 
+\begin{align*}
+\frac{\left[\tau^\prime(\theta)\right]^2}{nI_1(\theta)} = \frac{144\theta^2}{n\cdot\frac{2}{\theta^2}} = \frac{72\theta^4}{n}
+\end{align*}
 
+\subsubsection*{f.}
+
+
+\subsubsection*{g.}
+The MME is obtained by setting $m_1=\bar{X}$ equal to $\mu_1^\prime = E(X)$. Since $E(X) = 6\theta^2$, we get $\widehat{6\theta^2} = \bar{X}$ as the MME estimator of $6\theta^2$. To find the variance we must take 
+\begin{align*}
+\mathrm{Var}(\bar{X}) = \mathrm{Var}\left(\frac{1}{n}\sum_{i=0}^n X_i\right) = \frac{1}{n^2}\sum_{i=0}^n \mathrm{Var}(X_i) = \frac{1}{n}\mathrm{Var}(X_i)
+\end{align*}
+The variance of $X$ (any of the iid $X_i$) can be calculated from its definition, using the values of $E(X)$ from part a, and
+\begin{align*}
+E(X^2) &= \int_0^\infty \frac{x^2}{2\theta^2}\exp\left(\frac{-\sqrt{x}}{\theta}\right)dx \\
+&=120\theta^4 &\text{solved with Wolfram Alpha}
+\end{align*}
+
+\begin{align*}
+\mathrm{Var}(\bar{X}) &= \frac{1}{n}\left(E(X^2) - \left[E(X)\right]^2\right) \\
+&=\frac{1}{n}\left(120\theta^4-36\theta^4\right) = \frac{84\theta^4}{n} \\
+\end{align*}
 
 
 
