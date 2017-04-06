@@ -134,8 +134,68 @@ We have a complete, sufficient statistic, so we now need an unbiased estimator o
 \end{align*}
 So $\widehat{(1-\theta)^2} = (1/12)(4-T)(3-T)$ is the unique best unbiased estimator of $(1-\theta)^2$.
 
-\subsubsection*{Problem 3}
-From the class notes, page 6.2.18 $T(\mathbf{X}) = (\sum_{i=1}^nX_i, \sum_{i=1}^nX_i^2)$ is a complete sufficient statistic for a normal distribution. The sample variance is defined as \[S^2=\frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{n-1}.\] Now with $n=7$, \[\frac{6S^2}{\sigma^2} = \frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{\sigma^2} ~ \chi^2(6)\] 
+\subsection*{Problem 3}
+\subsubsection*{a.}
+From the class notes, page 6.2.18 $T(\mathbf{X}) = (\sum_{i=1}^nX_i, \sum_{i=1}^nX_i^2)$ is a complete sufficient statistic for a normal distribution. The sample variance is defined as \[S^2=\frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{n-1}.\] Now with $n=7$, \[\frac{6S^2}{\sigma^2} = \frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{\sigma^2} \sim \chi^2(6).\] To calculate the expectation of $1/S^2$, let $U = 1/S^2$ and we use the pdf of $\chi^2(6)$,
+\begin{align*}
+E\left(\frac{1}{U}\right)&=\frac{6}{\sigma^2}\int_0^\infty\frac{1}{u}\frac{1}{2^3\cdot2}u^2\exp\left(\frac{-u}{2}\right) \\
+&=\frac{6}{8\sigma^2}\int_0^\infty u\frac{1}{2}u^0\exp\left(\frac{-u}{2}\right)
+\end{align*}
+The integral of this last expression is equivalent to $E(Y); Y\sim\chi^2(2)$, which evaluates to $2$ since the mean of a chi-squared distribution equals $k$.
+\[E\left(\frac{1}{U}\right) = \frac{3}{2\sigma^2}.\]
+Since $\bar{X}$ and $S^2$ are stochastically independant, 
+\[E\left(\frac{\bar{X}}{S^2}\right) = E(\bar{X})E\left(\frac{1}{S^2}\right) = \mu\frac{3}{2\sigma^2}.\]
+Therefore \[\widehat{\frac{\mu}{\sigma^2}} = \frac{2}{3}\frac{\bar{X}}{S^2}\] because 
+\[E\left(\frac{2}{3}\frac{\bar{X}}{S^2}\right) = \frac{2}{3}E(\bar{X})E\left(\frac{1}{S^2}\right) = \frac{\mu}{\sigma^2}.\] 
+Since \[\bar{X} = \frac{\sum_{i=1}^n x_i}{n}\] and 
+\begin{align*}
+S^2 &= \frac{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}{n-1} \\
+&= \sum_{i=1}^n x_i^2 - \left[\sum_{i=1}^n x_i\right]^2
+\end{align*}
+are both functions of only $T(\mathbf{X})$, then by Theorem 7.3.23, $\widehat{\mu/\sigma^2}$ is the unique best unbiased estimator of $\mu/\sigma^2$.
+
+\subsubsection*{b.}
+The inverse of the Fisher information matrix for the joint distribution of $n$ iid Normal distributions is given in the class notes page 7.3.39 as 
+\[\begin{bmatrix}
+\frac{\sigma^2}{n} & 0 \\ 0 & \frac{2\sigma^4}{n}
+\end{bmatrix}\]
+The gradient for $\tau(\vec{\theta}) = \mu/\sigma^2$ is 
+\begin{align*}
+\mathbf{\nabla}_{\tau(\vec{\theta})} &= \left(\frac{d}{d\mu}\tau(\vec{\theta}), \frac{d}{d(\sigma^2)}\tau(\vec{\theta})\right) \\
+&=\left(\frac{1}{\sigma^2}, -\frac{\mu}{\left(\sigma^2\right)^2}\right)
+\end{align*}
+The lower bound for estimating $\tau(\vec{\theta})$ then becomes
+\[
+\begin{bmatrix} \frac{1}{\sigma^2} & -\frac{\mu}{\sigma^4} \end{bmatrix}
+\begin{bmatrix}\frac{\sigma^2}{n} & 0 \\ 0 & \frac{2\sigma^4}{n}\end{bmatrix}
+\begin{bmatrix} \frac{1}{\sigma^2} \\ -\frac{\mu}{\sigma^4} \end{bmatrix}
+= \begin{bmatrix} \frac{1}{\sigma^2} & -\frac{\mu}{\sigma^4} \end{bmatrix}
+\begin{bmatrix} \frac{1}{n} \\ -\frac{2\mu}{n} \end{bmatrix}
+=\frac{1}{n\sigma^2}+\frac{2\mu^2}{n\sigma^4}
+\]
+
+\subsubsection*{c.}
+The variance of $\widehat{\mu/\sigma^2}$ is 
+\begin{align*}
+\mathrm{Var}\left(\frac{2\bar{X}}{3S^2}\right) &= \frac{4}{9}\mathrm{var}\left(\frac{\bar{X}}{S^2}\right) = \frac{4}{9}\left(E\left(\frac{\bar{X}^2}{S^4}\right) - \left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2\right) \\ \\
+\left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2 &= \frac{3\mu}{2\sigma^2} \\ \\
+E(\bar{X}^2) &= \mathrm{Var}(\bar{X}) + \left[E(\bar{X})\right]^2 \\
+&=\frac{\sigma^2}{7} + \mu^2 \\
+\end{align*}
+To calculate the expectation of the squared inverse of the sample variance, we use the $U = 1/S^2$ transformation from part a,
+\begin{align*}
+E\left(\frac{1}{\left(S^2\right)^2}\right) &= E\left(\frac{1}{U^2}\right) = \frac{6^2}{(\sigma^2)^2}\int_0^\infty\frac{1}{u^2}\frac{1}{2^3\cdot2}u^2\exp\left(\frac{-u}{2}\right) \\
+&=\frac{36}{16\sigma^4}\int_0^\infty\exp\left(\frac{-u}{2}\right) \\
+&=\frac{9}{4\sigma^4}\,\left.-2\exp\left(\frac{-u}{2}\right)\right|_0^\infty \\
+&=\frac{-9}{2\sigma^4}\left(0-1\right) = \frac{9}{2\sigma^4} \\ \\
+E\left(\frac{\bar{X}^2}{S^4}\right) &= E(\bar{X}^2)E\left(\frac{1}{\left(S^2\right)^2}\right)\\
+&=  \left(\frac{\sigma^2+7\mu^2}{7}\right)\left(\frac{9}{2\sigma^4}\right) \\ \\
+\mathrm{Var}\left(\frac{2\bar{X}}{3S^2}\right) &= \frac{4}{9}\left(E\left(\frac{\bar{X}^2}{S^4}\right) - \left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2\right) \\
+&=\frac{4}{9}\left[\left(\frac{\sigma^2+7\mu^2}{7}\right)\left(\frac{9}{2\sigma^4}\right) - \left(\frac{3\mu}{2\sigma^2}\right)^2\right] \\
+%&=\frac{4\cdot9\sigma^2}{9\cdot7\cdot2\sigma^4} + \frac{4\cdot7\cdot9\mu^2}{9\cdot7\cdot2\sigma^4}-\frac{4\cdot3^2 \mu^2}{9\cdot2^2 \sigma^4}
+&= \frac{2}{7\sigma^2}+\frac{\mu^2}{\sigma^4}
+\end{align*}
+
 
 
 \end{document}
