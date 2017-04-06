@@ -111,14 +111,31 @@ The MME is obtained by setting $m_1=\bar{X}$ equal to $\mu_1^\prime = E(X)$. Sin
 The variance of $X$ (any of the iid $X_i$) can be calculated from its definition, using the values of $E(X)$ from part a, and
 \begin{align*}
 E(X^2) &= \int_0^\infty \frac{x^2}{2\theta^2}\exp\left(\frac{-\sqrt{x}}{\theta}\right)dx \\
-&=120\theta^4 &\text{solved with Wolfram Alpha}
-\end{align*}
-
-\begin{align*}
+&=120\theta^4 &\text{solved with Wolfram Alpha}\\ \\
 \mathrm{Var}(\bar{X}) &= \frac{1}{n}\left(E(X^2) - \left[E(X)\right]^2\right) \\
 &=\frac{1}{n}\left(120\theta^4-36\theta^4\right) = \frac{84\theta^4}{n} \\
 \end{align*}
 
+\subsection*{Problem 2}
+A sequence of iid Bernoulli random variables has a binomial distribution with probability $\theta$ and $n=4$. From the notes on page 6.2.16, we see that $T(\mathbf{x}) = \sum_{i=0}^n X_i$ is a complete, sufficient statistic for a binomial distribution. Since $T$ has a binomial distribution, we know that 
+\begin{align*}
+E(T) &= np = 4\theta \\ \\
+\mathrm{Var}(T) &= np(1-p) = 4\theta - 4 \theta^2 \\ \\
+E(T^2) &= \mathrm{Var}(T) + \left[E(T)\right]^2\\
+&=4\theta-4theta^2 + 16\theta^2 \\
+&=4\theta + 12\theta^2
+\end{align*}
+We have a complete, sufficient statistic, so we now need an unbiased estimator of $(1-\theta)^2$ to get a best unbiased estimator by Theorem 7.3.23. To find such an estimator, we work backwards from the desired result, plugging in the results above
+\begin{align*}
+(1-\theta)^2 &= (1-2\theta+\theta^2) \\
+&=\frac{12-28\theta+4\theta+12\theta^2}{12} \\
+&=\frac{1}{12}\left(12-7E(T)+E(T^2)\right) \\
+&=E\left[\frac{1}{12}(4-T)(3-T)\right]
+\end{align*}
+So $\widehat{(1-\theta)^2} = (1/12)(4-T)(3-T)$ is the unique best unbiased estimator of $(1-\theta)^2$.
+
+\subsubsection*{Problem 3}
+From the class notes, page 6.2.18 $T(\mathbf{X}) = (\sum_{i=1}^nX_i, \sum_{i=1}^nX_i^2)$ is a complete sufficient statistic for a normal distribution. The sample variance is defined as \[S^2=\frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{n-1}.\] Now with $n=7$, \[\frac{6S^2}{\sigma^2} = \frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{\sigma^2} ~ \chi^2(6)\] 
 
 
 \end{document}
