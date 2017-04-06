@@ -25,13 +25,14 @@
 
 \subsection*{Problem 1}
 \subsubsection*{a.}
+
 \begin{align*}
-f(\mathbf{x}|\theta)&=\prod_{i=0}^n\left[\frac{1}{2\theta}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)}I_{(0,\infty)}(x_i)\right] \\
-&=\frac{1}{2^n\theta^{2n}}\exp{\left(\frac{-1}{\theta}\sum_{i=0}^n\sqrt{x_i}\right)}\prod_{i=0}^nI_{(0,\infty)}(x_i)
+f(\mathbf{x}|\theta)&=\prod_{i=1}^n\left[\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)}I_{(0,\infty)}(x_i)\right] \\
+&=\frac{1}{2^n\theta^{2n}}\exp{\left(\frac{-1}{\theta}\sum_{i=1}^n\sqrt{x_i}\right)}\prod_{i=1}^nI_{(0,\infty)}(x_i)
 \end{align*}
-Let 
+This pdf is in the exponential family, and can be decomposed as follows, 
 \[
-c(\theta)=\frac{1}{2^n\theta^{2n}}, \qquad h(x)=\prod_{i=0}^n I_{(0,\infty)}(x_i), \qquad w_1=\frac{-1}{\theta}, \qquad t = \sum_{i=0}^n\sqrt{x_i}
+c(\theta)=\frac{1}{2^n\theta^{2n}}, \qquad h(\mathbf{x})=\prod_{i=1}^n I_{(0,\infty)}(x_i), \qquad w_1=\frac{-1}{\theta}, \qquad t = \sum_{i=1}^n\sqrt{x_i}
 \]
 \iffalse
 Due to factorization (Theorem 6.2.6), $T(\mathbf{x}) = \sum_{i=0}^n\sqrt{x_i}$ is a sufficient statistic for $\theta$. 
@@ -40,35 +41,35 @@ Since
 \begin{align*}
 \left\{w_1(\theta):\theta \in \Theta\right\}\quad \rightarrow\quad \left\{\frac{-1}{\theta}:\theta > 0\right\}\quad \rightarrow\quad \left(-\infty, 0\right)
 \end{align*} 
-contains an open set on $\mathbb{R}^\prime$, $T(\mathbf{x}) = \sum_{i=0}^n\sqrt{x_i}$ is a complete sufficient statistic. The expectation of any $X$ can be calculated as 
+contains an open set on $\mathbb{R}^\prime$, $T(\mathbf{x}) = \sum_{i=0}^n\sqrt{x_i}$ is a complete sufficient statistic for $\theta$. The expectation of any $X_i$ can be calculated as 
 \begin{align*}
-E(X) &= \int_0^\infty x\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)} dx \\
+E(X) &= \int_0^\infty x\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x}}{\theta}\right)} dx \\
 &=\left.\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x}}{\theta}\right)}\left(-12\theta^4-12\theta^3\sqrt{x}-6\theta^2x-\theta x^{3/2}\right)\right|_0^\infty &\text{solved with Wolfram Alpha} \\
 &=\left.\exp{\left(\frac{-\sqrt{x}}{\theta}\right)}\left(-6\theta^2-6\theta\sqrt{x}-3x-\frac{1}{2\theta}x^{3/2}\right)\right|_0^\infty \\
 &= e^{-\infty}(...)-e^0\left(-6\theta^2-0\right) = 6\theta^2
 \end{align*}
 Using a similar derivation, the expectation of $\sqrt{X}$ is
 \begin{align*}
-E(\sqrt{X}) &= \int_0^\infty \sqrt{x}\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x_i}}{\theta}\right)} dx \\
+E(\sqrt{X}) &= \int_0^\infty \sqrt{x}\frac{1}{2\theta^2}\exp{\left(\frac{-\sqrt{x}}{\theta}\right)} dx \\
 &=\left.\exp{\left(\frac{-\sqrt{x}}{\theta}\right)}\left(-2\theta-2\sqrt{x}-\frac{1}{\theta}x\right)\right|_0^\infty &\text{solved with Wolfram Alpha} \\
 &=2\theta
 \end{align*}
 To find an unbiased estimator, we investigate the expectation of $T(\mathbf{x})$,
 \begin{align*}
-E\left(T(\mathbf{x})\right) &= E\left(\sum_{i=0}^n\sqrt{x_i}\right) \\
-&=\sum_{i=0}^n E\left(\sqrt{x_i}\right) \\
+E\left(T(\mathbf{x})\right) &= E\left(\sum_{i=1}^n\sqrt{x_i}\right) \\
+&=\sum_{i=1}^n E\left(\sqrt{x_i}\right) \\
 &=n(2\theta)
 \end{align*}
-Therefore, the expectation of $\hat{\theta} = T(\mathbf{x})/2n$, \[E(\hat{\theta}) = E\left(\frac{T}{2n}\right) = \theta\] shows that $\hat{\theta}$ is an unbiased estimator of $\theta$. Since it is also a function of a complete sufficient statistic of $\theta$, by Theorem 7.3.23, $\hat{\theta}$ is the unique best unbiased estimator of $\theta$.
-
+Therefore, the expectation of \[\hat{\theta} = \frac{T(\mathbf{x})}{2n};\qquad E(\hat{\theta}) = E\left(\frac{T}{2n}\right) = \theta\] shows that $\hat{\theta}$ is an unbiased estimator of $\theta$. Since it is also a function of a complete sufficient statistic of $\theta$, by Theorem 7.3.23, $\hat{\theta}$ is the unique best unbiased estimator of $\theta$.
+\pagebreak
 \subsubsection*{b.}
-The Carmer-Rao lower bound for the variance of $\hat{\theta}$ given that $\hat{\theta}$ is a function of $T(\mathbf{X})$ and $X_1, X_2, ...$ are iid variables is given by 
-\[\frac{1}{nE_\theta\left(\left[\frac{d}{d\theta}\log f(X|\theta)\right]^2\right)}.\]
+The Cramer-Rao lower bound for the variance of $\hat{\theta}$ given that $\hat{\theta}$ is a function of $T(\mathbf{X})$ and $X_1, X_2, ...$ are iid variables is given by 
+\[\frac{1}{nI_1(\theta)} = \frac{1}{nE_\theta\left(\left[\frac{d}{d\theta}\log f(X|\theta)\right]^2\right)}.\]
 We resolve the denominator using values of expectation from part a, 
 \begin{align*}
 \frac{d}{d\theta}\log f(X|\theta) &= \frac{d}{d\theta}\left(-2\log(\sqrt{2}\theta)-\frac{\sqrt{x}}{\theta}\right) = \frac{-2}{\theta}+\frac{\sqrt{x}}{\theta^2} \\
-\left(\frac{d}{d\theta}\log f(X|\theta)\right)^2 &= \frac{4}{\theta^2}-\frac{4\sqrt{x}}{\theta^3}+\frac{x}{\theta^4} \\
-E\left[\left(\frac{d}{d\theta}\log f(X|\theta)\right)^2\right] &= E\left[\frac{4}{\theta^2}-\frac{4\sqrt{x}}{\theta^3}+\frac{x}{\theta^4}\right] = \frac{4}{\theta^2}-\frac{4E(\sqrt{x})}{\theta^3}+\frac{E(x)}{\theta^4} \\
+\left[\frac{d}{d\theta}\log f(X|\theta)\right]^2 &= \frac{4}{\theta^2}-\frac{4\sqrt{x}}{\theta^3}+\frac{x}{\theta^4} \\
+E\left(\left[\frac{d}{d\theta}\log f(X|\theta)\right]^2\right) &= E\left(\frac{4}{\theta^2}-\frac{4\sqrt{x}}{\theta^3}+\frac{x}{\theta^4}\right) = \frac{4}{\theta^2}-\frac{4E(\sqrt{x})}{\theta^3}+\frac{E(x)}{\theta^4} \\
 &=\frac{4}{\theta^2} - \frac{8\theta}{\theta^3}+\frac{6\theta^2}{\theta^4} = \frac{2}{\theta^2}
 \end{align*}
 which gives us a Cramer-Rao lower bound of 
@@ -76,16 +77,16 @@ which gives us a Cramer-Rao lower bound of
 
 \subsubsection*{c.}
 \begin{align*}
-\mathrm{Var}{(\hat{\theta})} &= \frac{1}{4n^2}\mathrm{Var}(T) = \frac{1}{4n^2}\mathrm{Var}\left(\sum_{i=0}^n \sqrt{X_i}\right) = \frac{1}{4n^2}\sum_{i=0}^n \mathrm{Var}(\sqrt{X_i})\\
+\mathrm{Var}(\hat{\theta}) &= \mathrm{Var}\left(\frac{T}{4n^2}\right) = \frac{1}{4n^2}\mathrm{Var}(T) = \frac{1}{4n^2}\mathrm{Var}\left(\sum_{i=1}^n \sqrt{X_i}\right) = \frac{1}{4n^2}\sum_{i=1}^n \mathrm{Var}(\sqrt{X_i})\\
 &=\frac{n}{4n^2}\left(E(X)-\left[E(\sqrt{X})\right]^2\right) \\
 &=\frac{1}{4n}\left[6\theta^2-(2\theta)^2\right] \\
 &= \frac{\theta^2}{2n}
 \end{align*}
 
 \subsubsection*{d.}
-We can reuse the complete, sufficient statistic $T(\mathbf{x})$ that we derived in part a. From part a we see that 
-\[E\left(T(\mathbf{x})\right)=2n\theta.\]
-Therefore, to find an unbiased estimator for $6\theta^2$, we investigate $T^2$ using information from part c,
+We can reuse the complete, sufficient statistic $T(\mathbf{x})$ derived in part a. From part a we see that 
+$E\left(T(\mathbf{x})\right)=2n\theta$.
+Therefore, to find an unbiased estimator for $6\theta^2$, we investigate the expectation of $T^2$ using information from part c,
 \begin{align*}
 E\left(T^2\right) &= \mathrm{Var}(T) + \left[E(T)\right]^2 \\
 &=2n\theta^2 + (2n\theta)^2 \\
@@ -94,19 +95,28 @@ E\left(T^2\right) &= \mathrm{Var}(T) + \left[E(T)\right]^2 \\
 Thus \[\widehat{6\theta^2} = \frac{3T^2}{n(2n+1)}; \qquad E\left(\widehat{6\theta^2}\right) = E\left(\frac{3T^2}{n(2n+1)}\right) = \frac{3E\left(T^2\right)}{n(2n+1)} = 6\theta^2\] 
 is an unbiased estimator for $6\theta^2$. Since it is also a function of $T(\mathbf{x})$, and we have determined that this is a complete, sufficient statistic in part a, by Theorem 7.3.23, $\widehat{6\theta^2}$ is the unique best unbiased estimator of $6\theta^2$.
 
+\pagebreak
 \subsubsection*{e.}
-Let $\tau(\theta) = 6\theta^2$, so that $\tau^\prime(\theta) = 12\theta$. Then the Cramer-Rao lower bound is given by 
+Let $\tau(\theta) = 6\theta^2$, so that $\tau^\prime(\theta) = 12\theta$. Since we have alrady calculated the Fisher information for the $f$ in part b, the Cramer-Rao lower bound is given by 
 \begin{align*}
 \frac{\left[\tau^\prime(\theta)\right]^2}{nI_1(\theta)} = \frac{144\theta^2}{n\cdot\frac{2}{\theta^2}} = \frac{72\theta^4}{n}
 \end{align*}
 
 \subsubsection*{f.}
+\begin{align*}
+\mathrm{Var}\left(\widehat{6\theta^2}\right) &= \mathrm{Var}\left(\frac{3T^2}{n(2n+1)}\right)\\
+&= \frac{9}{n^2(2n+1)^2}\mathrm{Var}(T^2) \\
+&=\frac{9}{n^2(2n+1)^2} \left(E(T^4)-\left[E(T^2)\right]^2\right) \\
+&=\frac{9}{n^2(2n+1)^2} \left( ??? - \left[2n(2n+1)\theta^2\right]^2\right)
+\end{align*}
 
 
 \subsubsection*{g.}
 The MME is obtained by setting $m_1=\bar{X}$ equal to $\mu_1^\prime = E(X)$. Since $E(X) = 6\theta^2$, we get $\widehat{6\theta^2} = \bar{X}$ as the MME estimator of $6\theta^2$. To find the variance we must take 
 \begin{align*}
-\mathrm{Var}(\bar{X}) = \mathrm{Var}\left(\frac{1}{n}\sum_{i=0}^n X_i\right) = \frac{1}{n^2}\sum_{i=0}^n \mathrm{Var}(X_i) = \frac{1}{n}\mathrm{Var}(X_i)
+\mathrm{Var}\left(\widehat{6\theta^2}\right) &= \mathrm{Var}(\bar{X}) = \mathrm{Var}\left(\frac{1}{n}\sum_{i=1}^n X_i\right) \\
+&= \frac{1}{n^2}\sum_{i=1}^n \mathrm{Var}(X_i) \\
+&= \frac{1}{n}\mathrm{Var}(X_i)
 \end{align*}
 The variance of $X$ (any of the iid $X_i$) can be calculated from its definition, using the values of $E(X)$ from part a, and
 \begin{align*}
@@ -116,43 +126,48 @@ E(X^2) &= \int_0^\infty \frac{x^2}{2\theta^2}\exp\left(\frac{-\sqrt{x}}{\theta}\
 &=\frac{1}{n}\left(120\theta^4-36\theta^4\right) = \frac{84\theta^4}{n} \\
 \end{align*}
 
+\pagebreak
 \subsection*{Problem 2}
-A sequence of iid Bernoulli random variables has a binomial distribution with probability $\theta$ and $n=4$. From the notes on page 6.2.16, we see that $T(\mathbf{x}) = \sum_{i=0}^n X_i$ is a complete, sufficient statistic for a binomial distribution. Since $T$ has a binomial distribution, we know that 
+A sum of iid Bernoulli random variables has a binomial distribution with probability $\theta$ and $n=4$. From the notes on page 6.2.16, we see that $T(\mathbf{X}) = \sum_{i=1}^4 X_i$ is a complete, sufficient statistic for a binomial distribution with $n=4$. Since the sufficient statistic $T$ itself has a binomial distribution, we know that 
 \begin{align*}
 E(T) &= np = 4\theta \\ \\
 \mathrm{Var}(T) &= np(1-p) = 4\theta - 4 \theta^2 \\ \\
 E(T^2) &= \mathrm{Var}(T) + \left[E(T)\right]^2\\
-&=4\theta-4theta^2 + 16\theta^2 \\
+&=4\theta-4\theta^2 + 16\theta^2 \\
 &=4\theta + 12\theta^2
 \end{align*}
-We have a complete, sufficient statistic, so we now need an unbiased estimator of $(1-\theta)^2$ to get a best unbiased estimator by Theorem 7.3.23. To find such an estimator, we work backwards from the desired result, plugging in the results above
+To find an unbiased estimator of $(1-\theta)^2$ we work backwards from the desired result, utilizing the information above
 \begin{align*}
 (1-\theta)^2 &= (1-2\theta+\theta^2) \\
 &=\frac{12-28\theta+4\theta+12\theta^2}{12} \\
 &=\frac{1}{12}\left(12-7E(T)+E(T^2)\right) \\
 &=E\left[\frac{1}{12}(4-T)(3-T)\right]
 \end{align*}
-So $\widehat{(1-\theta)^2} = (1/12)(4-T)(3-T)$ is the unique best unbiased estimator of $(1-\theta)^2$.
+Because $T(\mathbf{X})$ is a complete sufficient statistic, 
+\[\widehat{(1-\theta)^2} = \frac{(4-T)(3-T)}{12}\] is the unique best unbiased estimator of $(1-\theta)^2$ by Theorem 7.3.23.
 
 \subsection*{Problem 3}
 \subsubsection*{a.}
-From the class notes, page 6.2.18 $T(\mathbf{X}) = (\sum_{i=1}^nX_i, \sum_{i=1}^nX_i^2)$ is a complete sufficient statistic for a normal distribution. The sample variance is defined as \[S^2=\frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{n-1}.\] Now with $n=7$, \[\frac{6S^2}{\sigma^2} = \frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{\sigma^2} \sim \chi^2(6).\] To calculate the expectation of $1/S^2$, let $U = 1/S^2$ and we use the pdf of $\chi^2(6)$,
+From the class notes, page 6.2.18, $T(\mathbf{X}) = (\sum_{i=1}^nX_i, \sum_{i=1}^nX_i^2)$ is a complete sufficient statistic for a normal distribution. The sample variance is defined as \[S^2=\frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{n-1}.\] Now with $n=7$, \[\frac{6S^2}{\sigma^2} = \frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{\sigma^2} \sim \chi^2(6).\] To calculate the expectation of $1/S^2$, let 
+\[U = \frac{1}{\frac{6S^2}{\sigma^2}} = \frac{\sigma^2}{6S^2}; \qquad E\left(\frac{1}{S^2}\right) = \frac{6}{\sigma^2}E(U)\] and we use the pdf of $\chi^2(6)$,
 \begin{align*}
-E\left(\frac{1}{U}\right)&=\frac{6}{\sigma^2}\int_0^\infty\frac{1}{u}\frac{1}{2^3\cdot2}u^2\exp\left(\frac{-u}{2}\right) \\
+\frac{6}{\sigma^2}E(U)&=\frac{6}{\sigma^2}\int_0^\infty\frac{1}{u}\frac{1}{2^3\cdot2}u^2\exp\left(\frac{-u}{2}\right) \\
 &=\frac{6}{8\sigma^2}\int_0^\infty u\frac{1}{2}u^0\exp\left(\frac{-u}{2}\right)
 \end{align*}
-The integral of this last expression is equivalent to $E(Y); Y\sim\chi^2(2)$, which evaluates to $2$ since the mean of a chi-squared distribution equals $k$.
-\[E\left(\frac{1}{U}\right) = \frac{3}{2\sigma^2}.\]
+
+\pagebreak
+The integral of this last expression is equivalent to $E(Y); Y\sim\chi^2(2)$, which evaluates to $2$ since the mean of a chi-squared distribution is equal to the parameter $k$.
+\[E\left(\frac{1}{S^2}\right) = \frac{3}{2\sigma^2}.\]
+
 Since $\bar{X}$ and $S^2$ are stochastically independant, 
 \[E\left(\frac{\bar{X}}{S^2}\right) = E(\bar{X})E\left(\frac{1}{S^2}\right) = \mu\frac{3}{2\sigma^2}.\]
-Therefore \[\widehat{\frac{\mu}{\sigma^2}} = \frac{2}{3}\frac{\bar{X}}{S^2}\] because 
-\[E\left(\frac{2}{3}\frac{\bar{X}}{S^2}\right) = \frac{2}{3}E(\bar{X})E\left(\frac{1}{S^2}\right) = \frac{\mu}{\sigma^2}.\] 
-Since \[\bar{X} = \frac{\sum_{i=1}^n x_i}{n}\] and 
+Therefore \[\widehat{\frac{\mu}{\sigma^2}} = \frac{2\bar{X}}{3S^2}; \qquad E\left(\frac{2\bar{X}}{3S^2}\right) = \frac{2}{3}E(\bar{X})E\left(\frac{1}{S^2}\right) = \frac{\mu}{\sigma^2}.\] 
+Since  
 \begin{align*}
-S^2 &= \frac{\sum_{i=1}^n\left(x_i-\bar{x}\right)^2}{n-1} \\
-&= \sum_{i=1}^n x_i^2 - \left[\sum_{i=1}^n x_i\right]^2
+\bar{X} &= \frac{\sum_{i=1}^n X_i}{n} \\
+S^2 &= \frac{\sum_{i=1}^n\left(X_i-\bar{X}\right)^2}{n-1},
 \end{align*}
-are both functions of only $T(\mathbf{X})$, then by Theorem 7.3.23, $\widehat{\mu/\sigma^2}$ is the unique best unbiased estimator of $\mu/\sigma^2$.
+$\bar{X}$ is a function of $\sum_{i=1}^nX_i$ and and $S^2$ is a function of $\sum_{i=1}^nX_i$, $\sum_{i=1}^nX_i^2$, and $\bar{X}$. Therefore, both $\bar{X}$ and $S^2$ are functions of only $T(\mathbf{X})$, and by Theorem 7.3.23, $\widehat{\mu/\sigma^2}$ is the unique best unbiased estimator of $\mu/\sigma^2$.
 
 \subsubsection*{b.}
 The inverse of the Fisher information matrix for the joint distribution of $n$ iid Normal distributions is given in the class notes page 7.3.39 as 
@@ -178,20 +193,20 @@ The lower bound for estimating $\tau(\vec{\theta})$ then becomes
 The variance of $\widehat{\mu/\sigma^2}$ is 
 \begin{align*}
 \mathrm{Var}\left(\frac{2\bar{X}}{3S^2}\right) &= \frac{4}{9}\mathrm{var}\left(\frac{\bar{X}}{S^2}\right) = \frac{4}{9}\left(E\left(\frac{\bar{X}^2}{S^4}\right) - \left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2\right) \\ \\
-\left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2 &= \frac{3\mu}{2\sigma^2} \\ \\
+\left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2 &= \left[\frac{3\mu}{2\sigma^2}\right]^2 = \frac{9\mu^2}{4\sigma^4} \\ \\
 E(\bar{X}^2) &= \mathrm{Var}(\bar{X}) + \left[E(\bar{X})\right]^2 \\
 &=\frac{\sigma^2}{7} + \mu^2 \\
 \end{align*}
-To calculate the expectation of the squared inverse of the sample variance, we use the $U = 1/S^2$ transformation from part a,
+To calculate the expectation of the squared inverse of the sample variance, we use the $U$ transformation from part a,
 \begin{align*}
-E\left(\frac{1}{\left(S^2\right)^2}\right) &= E\left(\frac{1}{U^2}\right) = \frac{6^2}{(\sigma^2)^2}\int_0^\infty\frac{1}{u^2}\frac{1}{2^3\cdot2}u^2\exp\left(\frac{-u}{2}\right) \\
+E\left(\frac{1}{\left(S^2\right)^2}\right) &= \frac{6^2}{(\sigma^2)^2}E(U) = \frac{36}{\sigma^4}\int_0^\infty\frac{1}{u^2}\frac{1}{2^3\cdot2}u^2\exp\left(\frac{-u}{2}\right) \\
 &=\frac{36}{16\sigma^4}\int_0^\infty\exp\left(\frac{-u}{2}\right) \\
 &=\frac{9}{4\sigma^4}\,\left.-2\exp\left(\frac{-u}{2}\right)\right|_0^\infty \\
 &=\frac{-9}{2\sigma^4}\left(0-1\right) = \frac{9}{2\sigma^4} \\ \\
 E\left(\frac{\bar{X}^2}{S^4}\right) &= E(\bar{X}^2)E\left(\frac{1}{\left(S^2\right)^2}\right)\\
 &=  \left(\frac{\sigma^2+7\mu^2}{7}\right)\left(\frac{9}{2\sigma^4}\right) \\ \\
 \mathrm{Var}\left(\frac{2\bar{X}}{3S^2}\right) &= \frac{4}{9}\left(E\left(\frac{\bar{X}^2}{S^4}\right) - \left[E\left(\frac{\bar{X}}{S^2}\right)\right]^2\right) \\
-&=\frac{4}{9}\left[\left(\frac{\sigma^2+7\mu^2}{7}\right)\left(\frac{9}{2\sigma^4}\right) - \left(\frac{3\mu}{2\sigma^2}\right)^2\right] \\
+&=\frac{4}{9}\left[\left(\frac{\sigma^2+7\mu^2}{7}\right)\left(\frac{9}{2\sigma^4}\right) - \frac{9\mu^2}{4\sigma^4}\right] \\
 %&=\frac{4\cdot9\sigma^2}{9\cdot7\cdot2\sigma^4} + \frac{4\cdot7\cdot9\mu^2}{9\cdot7\cdot2\sigma^4}-\frac{4\cdot3^2 \mu^2}{9\cdot2^2 \sigma^4}
 &= \frac{2}{7\sigma^2}+\frac{\mu^2}{\sigma^4}
 \end{align*}
