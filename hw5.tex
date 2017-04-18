@@ -116,13 +116,13 @@ f(\mathbf{x}|\theta)\pi(\theta) &= \theta^n(1-\theta)^{-n+\sum x_i}I_{(0,1)}(\th
 \end{align*}
 \pagebreak
 
-The portion inside the integral is the density function of gamma distribution with parameters $\alpha = n+1$ and $\beta = 1 - n + \sum x_i$. The gamma distribution integrates to 1 over the range $(0, 1)$. 
+The portion inside the integral is the density function of beta distribution with parameters $\alpha = n+1$ and $\beta = 1 - n + \sum x_i$. The beta distribution integrates to 1 over the range $(0, 1)$. 
 \begin{align*}
 \pi(\theta|\mathbf{x}) &= \frac{f(\mathbf{x}|\theta)\pi(\theta)}{\int_0^1 f(\mathbf{x}|\theta)\pi(\theta) d\theta} \\
 &=\frac{\theta^n(1-\theta)^{-n+\sum x_i}}{\frac{\Gamma(n+1)\Gamma(1-n+\sum x_i)}{\Gamma(2+ \sum x_i)}} \\
 &=\frac{\Gamma(2+ \sum x_i)}{\Gamma(n+1)\Gamma(1-n+\sum x_i)}\theta^n(1-\theta)^{-n+\sum x_i}
 \end{align*}
-The density function of the posterior distribution is itself the same gamma distribution from above. 
+The density function of the posterior distribution is itself the same beta distribution from above. 
 
 \subsubsection*{c.}
 
@@ -138,8 +138,8 @@ For this problem, there is a single sample observation which we will denote by $
 \pi(\theta) &= \frac{1}{\sqrt{2\pi}}\exp\left(\frac{-\theta^2}{2}\right) \\ \\ 
 f(\mathbf{x}|\theta) &= \frac{1}{\sqrt{2\pi}}\exp\left(\frac{-[x-\theta]^2}{2}\right) \\ \\ 
 f(\mathbf{x}|\theta)\pi(\theta) &= \frac{1}{2\pi}\exp\left(\frac{-x^2}{2}+x\theta+\theta^2\right) \\ \\
-\int_{-\infty}^\infty f(\mathbf{x}|\theta)\pi(\theta) d\theta &= \int_{-\infty}^\infty\frac{1}{2\pi}\exp\left(\frac{-x^2}{2}+x\theta+\theta^2\right)d\theta \\
-&=\frac{1}{2\sqrt{\pi}}\exp\left(\frac{-x^2}{4}\right)\int_{-\infty}^\infty \frac{1}{\sqrt{\pi}}\exp\left(\frac{-x^2}{4}+x\theta+\theta^2\right)d\theta \\ 
+\int_{-\infty}^\infty f(\mathbf{x}|\theta)\pi(\theta) d\theta &= \int_{-\infty}^\infty\frac{1}{2\pi}\exp\left(\frac{-x^2}{2}+x\theta-\theta^2\right)d\theta \\
+&=\frac{1}{2\sqrt{\pi}}\exp\left(\frac{-x^2}{4}\right)\int_{-\infty}^\infty \frac{1}{\sqrt{\pi}}\exp\left(\frac{-x^2}{4}+x\theta-\theta^2\right)d\theta \\ 
 &=\frac{1}{2\sqrt{\pi}}\exp\left(\frac{-x^2}{4}\right)\int_{-\infty}^\infty \frac{1}{\sqrt{\pi}}\exp\left(-\left[[\theta-\frac{x}{2}\right]^2\right) d\theta
 \end{align*}
 The portion inside the integral is the density function of a normal distribution with variable $\theta$, $\mu = x/2$, $\sigma^2 = 1/2$. Over the range $(-\infty, \infty)$, the normal distribution integrates to 1. 
@@ -176,4 +176,35 @@ and set the resulting expression equal to zero:
 \pagebreak
 
 All functions of the form $\exp(a\hat{\theta})$ are increasing on $(-\infty, \infty)$ if $a$ is positive. Since the derivative of the posterior loss function is zero at the point above, and it is increasing, then the derivative of the posterior loss function must be negative for $\hat{\theta} < x/2-1/8$ and positive for $\hat{\theta} > x/2-1/8$. Therefore, this point is the global minimum, and the Bayes estimate for $\hat{\theta}$. 
+
+\subsection*{Problem 4}
+\subsubsection*{a. }
+The UMVUE for $\theta$ from a series of Bernoulli($\theta$) distributions is 
+\[\hat{\theta}_U = \frac{T(\mathbf{X})}{n}\] as demonstrated in HW4, Problem 2. The sufficient statistic $T(\mathbf{X})$ itself has a binomial distribution, so 
+\[E\left(T(\mathbf{X})\right) = n\theta;\qquad \mathrm{Var}\left(T(\mathbf{X})\right) = n\theta(1-\theta);\qquad E\left(T(\mathbf{X})^2\right) = \mathrm{Var}\left(T(\mathbf{X})\right) + \left[E\left(T(\mathbf{X})\right)\right]^2 = n\theta - n\theta^2 + n^2\theta^2 = n\theta + n(n-1)\theta^2\]
+ The MSE for Mr. B's estimate of $\hat{\theta}_B = 9/19$ is 
+\begin{align*}
+MSE_{B} = \sum_{i=1}^n\left(\frac{10}{19} - \frac{9}{19}\right)^2 = \frac{n}{19^2}.
+\end{align*}
+The MSE for $\hat{\theta}_U = T(\mathbf{X})/n$ is 
+\begin{align*}
+MSE_U = E\left(\left[\hat{\theta}_U - \theta\right]^2\right) &= \frac{1}{n^2}E\left(T(\mathbf{X})^2\right) - \frac{2\theta}{n} E\left(T(\mathbf{X})\right) + \theta^2 \\
+&=\frac{1}{n^2}n\theta + \frac{1}{n^2}n(n-1)\theta^2 -  \frac{2\theta}{n}n\theta + \theta^2 \\
+&= \frac{1}{n}\theta + \left(\frac{n-1}{n} - 2 + 1\right)\theta^2
+= \frac{\theta(1-\theta)}{n}
+\end{align*}
+Plugging that actual value of $\theta=10/19$, we get 
+\[MSE_U = \frac{1}{n}\frac{10}{19}\frac{9}{19} = \frac{90}{n19^2}\]
+To solve for $MSE_U < MSE_B$, 
+\begin{align*}
+MSE_U &< MSE_B \\
+\frac{90}{n19^2} &< frac{n}{19^2} \\
+90 &< n^2 
+\end{align*}
+Therefore, the sample size must be $n\geq 10$ to fulfull the inequality above and ensure that Mr. U's unbiased estimator has a smaller MSE than Mr. B's. 
+
+\subsubsection*{b.}
+The distribution of the sufficient statistic $T(\mathbf{X})$ is binomial, and will thus yield a integer. Given a sample size of ten, the only integer which, when divided by 10, give a closer estimate than $9/19 = 0.4736$ is $5/10 = 0.5$. The distance from $6/10 = 0.6$ to $10/19 = 0.526$ is greater than that between $9/19$ and $10/19$. For a binomial random variable with sample size 10 and parameter $\theta = 10/19 = 0.526$, the probability that there will be exactly $5$ successes is 
+\[P\left(T(\mathbf{X}) = 5\right) = \binom{10}{5}\left(\frac{10}{19}\right)^5\left(\frac{9}{19}\right)^5 = 0.243\]
+
 \end{document}
