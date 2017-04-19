@@ -31,7 +31,7 @@ P(X_i < x) &= F(x) = \int e^{\theta-x}I_{(\theta,\infty)}(x)dx =
 \begin{cases}1-e^{\theta-x} & x\geq\theta \\ 0 & x < \theta\end{cases} \\
 P(X_i > x) &= 1 - F(x) = 
 \begin{cases}e^{\theta-x} & x\geq\theta \\ 0 & x < \theta\end{cases} \\
-P(X_{(1)} > x) &= \sum_{i=1}^n P(X_i > x) = \left[P(X_i > x)\right]^n =
+P(X_{(1)} > x) &= \prod_{i=1}^n P(X_i > x) = \left[P(X_i > x)\right]^n =
 \begin{cases}e^{n(\theta-x)} & x\geq\theta \\ 0 & x < \theta\end{cases} \\
 P(X_{(1)} < x) &= F_{X_{(1)}}(x) = 
 \begin{cases}1-e^{n(\theta-x)} & x\geq\theta \\ 0 & x < \theta\end{cases} \\
@@ -72,8 +72,8 @@ To choose between the location-equivariant estimator and the scale-equivariant e
 &=c\cdot min(X_1, ..., X_n)
 \end{align*}
 Either the location-equivariant or scale-equivariant version of the Pittman estimator is valid. We choose the location equivariant for simplicity of calculation. The likelihood function is 
-\[L(\theta|\mathbf{x}) = \exp\left(\sum_{i=1}^n \theta - x_i\right)\]
-The range of the parameter $\theta$ is $(-\infty, infty)$. However, since we also have the constraint $x\geq\theta$, $\theta$ must be smaller than the smallest $x_i$ in our sample. Therefore we set the bounds of $\theta$ at $(-\infty, X_{(1)})$.
+\[\mathcal{L}(\theta|\mathbf{x}) = \exp\left(\sum_{i=1}^n \theta - x_i\right)\]
+The range of the parameter $\theta$ is $(-\infty, \infty)$. However, since we also have the constraint $x\geq\theta$, $\theta$ must be smaller than the smallest $x_i$ in our sample. Therefore we set the bounds of $\theta$ at $(-\infty, X_{(1)})$.
 \pagebreak
 \begin{equation*}
 \begin{aligned}
@@ -91,7 +91,7 @@ The range of the parameter $\theta$ is $(-\infty, infty)$. However, since we als
 \end{aligned}
 \end{equation*}
 \begin{align*}
-\hat{\theta}_{PL} &= \frac{\int\theta L(\theta|\mathbf{x}) d\theta}{\int L(\theta|\mathbf{x}) d\theta} \\
+\hat{\theta}_{PL} &= \frac{\int\theta \mathcal{L}(\theta|\mathbf{x}) d\theta}{\int \mathcal{L}(\theta|\mathbf{x}) d\theta} \\
 &=\frac{\frac{nx_{(1)}-1}{n^2}\exp\left(-\sum_{i=1}^n x_{(1)} -x_i\right)}{\frac{1}{n}\exp\left(-\sum_{i=1}^n x_{(1)} -x_i\right)} \\
 &= \frac{nx_{(1)}-1}{n} = x_{(1)} - \frac{1}{n}
 \end{align*}
@@ -127,7 +127,7 @@ The density function of the posterior distribution is itself the same beta distr
 \subsubsection*{c.}
 
 Following the derivation of the Bayes minimizer based on the squared error loss function from page 7.3.36 of the notes, we see that $\hat{\theta}(\mathbf{x}) = E(\theta|\mathbf{x})$.
-Since $\pi(\theta|\mathbf{x})$ has as gamma distribution, 
+Since $\pi(\theta|\mathbf{x})$ has as beta distribution, 
 \begin{align*}
 \hat{\theta}(\mathbf{x}) = E(\theta|\mathbf{x}) &= \frac{\alpha}{\alpha + \beta} \\
 &= \frac{n+1}{2+\sum_{i=1}^n x_i}
@@ -175,11 +175,11 @@ and set the resulting expression equal to zero:
 \end{align*}
 \pagebreak
 
-All functions of the form $\exp(a\hat{\theta})$ are increasing on $(-\infty, \infty)$ if $a$ is positive. Since the derivative of the posterior loss function is zero at the point above, and it is increasing, then the derivative of the posterior loss function must be negative for $\hat{\theta} < x/2-1/8$ and positive for $\hat{\theta} > x/2-1/8$. Therefore, this point is the global minimum, and the Bayes estimate for $\hat{\theta}$. 
+All functions of the form $a\exp(b\hat{\theta})$ are increasing on $(-\infty, \infty)$ if $a$ and $b$ are positive. In this case $a = 1/2\exp(1/16-x/4)$ and $b=1/2$; both are positive.             Since the derivative of the posterior loss function is zero at the point above, and it is increasing, then the derivative of the posterior loss function must be negative for $\hat{\theta} < x/2-1/8$ and positive for $\hat{\theta} > x/2-1/8$. Therefore, this point is the global minimum, and the Bayes estimate for $\hat{\theta}$. 
 
 \subsection*{Problem 4}
 \subsubsection*{a. }
-The UMVUE for $\theta$ from a series of Bernoulli($\theta$) distributions is 
+Mr. U's estimate, the UMVUE, for $\theta$ from a series of Bernoulli($\theta$) distributions is 
 \[\hat{\theta}_U = \frac{T(\mathbf{X})}{n}\] as demonstrated in HW4, Problem 2. The sufficient statistic $T(\mathbf{X})$ itself has a binomial distribution, so 
 \[E\left(T(\mathbf{X})\right) = n\theta;\qquad \mathrm{Var}\left(T(\mathbf{X})\right) = n\theta(1-\theta);\qquad E\left(T(\mathbf{X})^2\right) = \mathrm{Var}\left(T(\mathbf{X})\right) + \left[E\left(T(\mathbf{X})\right)\right]^2 = n\theta - n\theta^2 + n^2\theta^2 = n\theta + n(n-1)\theta^2\]
  The MSE for Mr. B's estimate of $\hat{\theta}_B = 9/19$ is 
